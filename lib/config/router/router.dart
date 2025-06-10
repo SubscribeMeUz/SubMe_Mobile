@@ -1,0 +1,62 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:gym_pro/components/success_page.dart';
+import 'package:gym_pro/config/di/app_injection.dart';
+import 'package:gym_pro/config/router/route_name.dart';
+import 'package:gym_pro/presentation/bloc/auth/auth_bloc.dart';
+import 'package:gym_pro/presentation/pages/auth/confirm_number_page.dart';
+import 'package:gym_pro/presentation/pages/auth/enter_phone_page.dart';
+import 'package:gym_pro/presentation/pages/auth/welcome_page.dart';
+import 'package:gym_pro/presentation/pages/home/home_page.dart';
+import 'package:gym_pro/presentation/pages/splash_page.dart';
+
+final rootNavigatorKey = GlobalKey<NavigatorState>();
+
+class AppRouter {
+  static final router = GoRouter(
+    initialLocation: '/welcome',
+    navigatorKey: rootNavigatorKey,
+    routes: [
+      GoRoute(
+        path: '/splash',
+        name: RouteName.splashRoute,
+        builder: (context, state) => const SplashPage(),
+      ),
+      GoRoute(
+        path: '/welcome',
+        name: RouteName.welcomeRoute,
+        builder: (context, state) => const WelcomePage(),
+        routes: [
+          GoRoute(
+            path: 'enter_phone',
+            name: RouteName.enterPhoneRoute,
+            builder:
+                (context, state) => BlocProvider(
+                  create: (_) => AuthBloc(repository: getIt.get()),
+                  child: const EnterPhonePage(),
+                ),
+            routes: [
+              GoRoute(
+                path: '/confirm_auth',
+                name: RouteName.confirmAuthRoute,
+                builder:
+                    (context, state) => BlocProvider(
+                      create: (_) => AuthBloc(repository: getIt.get()),
+                      child: ConfirmNumberPage(phoneNumber: state.extra as String),
+                    ),
+              ),
+            ],
+          ),
+        ],
+      ),
+
+      GoRoute(
+        path: '/success_page',
+        name: RouteName.successRoute,
+        builder: (context, state) => SuccessPage(args: state.extra as SuccessPageArgs),
+      ),
+      GoRoute(path: '/home', name: RouteName.homeRoute, builder: (context, state) => HomePage()),
+    ],
+  );
+}

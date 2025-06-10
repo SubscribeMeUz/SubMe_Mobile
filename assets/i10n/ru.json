@@ -1,0 +1,11 @@
+{
+    "no_account": "У вас нет учетной записи?",
+    "register": "Зарегистрироваться",
+    "registeration": "Регистрация",
+    "have_account": "У вас есть аккаунт?",
+    "login": "Войти",
+    "forgot_password": "Забыли пароль?",
+    "phone_number": "Номер телефона",
+    "password": "Пароль",
+    "confirm_password": "Подтвердите пароль"
+}

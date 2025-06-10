@@ -1,0 +1,11 @@
+{
+    "no_account": "Ro'yxatdan o'tmaganmisiz?",
+    "register": "Ro'yxatdan o'tish",
+    "registeration": "Ro'yxatdan o'tish",
+    "have_account": "Ro'yxatdan o'tganmisiz?",
+    "login": "Kirish",
+    "forgot_password": "Parolni unutdingizmi?",
+    "phone_number": "Telefon raqami",
+    "password": "Parol",
+    "confirm_password": "Parolni tasdiqlash"
+}
