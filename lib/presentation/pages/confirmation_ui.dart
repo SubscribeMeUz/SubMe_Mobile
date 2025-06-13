@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
+import 'package:gym_pro/config/localisation/app_localisation.dart';
+import 'package:gym_pro/config/localisation/localisation_keys.dart';
 import 'package:gym_pro/config/style/app_colors.dart';
 import 'package:gym_pro/config/style/app_text_style.dart';
 import 'package:gym_pro/presentation/pages/auth/widgets/timer_widget.dart';
@@ -48,7 +50,7 @@ class _ConfirmationUiState extends State<ConfirmationUi> {
         children: [
           const Gap(16),
           Text(
-            widget.titleText ?? 'Enter the code',
+            widget.titleText ?? context.tr(LocalisationKeys.enter_code),
             style: context.textStyle.sfProBold.copyWith(
               color: context.colors.whiteColor,
               fontSize: 28,
@@ -63,7 +65,7 @@ class _ConfirmationUiState extends State<ConfirmationUi> {
                 fontSize: 17,
               ),
               children: [
-                TextSpan(text: 'A verification code has been sent to'),
+                TextSpan(text: context.tr(LocalisationKeys.verif_code_sent_to)),
                 TextSpan(
                   text: ' \n+998 ${widget.phoneNumber}. ',
                   style: context.textStyle.sfProMedium.copyWith(
@@ -71,7 +73,7 @@ class _ConfirmationUiState extends State<ConfirmationUi> {
                     fontSize: 17,
                   ),
                 ),
-                TextSpan(text: 'Check your SMS'),
+                TextSpan(text: context.tr(LocalisationKeys.check_sms)),
               ],
             ),
           ),

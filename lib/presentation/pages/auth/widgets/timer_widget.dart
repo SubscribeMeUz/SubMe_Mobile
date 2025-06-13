@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:gym_pro/config/localisation/app_localisation.dart';
+import 'package:gym_pro/config/localisation/localisation_keys.dart';
 import 'package:gym_pro/config/style/app_colors.dart';
 import 'package:gym_pro/config/style/app_text_style.dart';
 
@@ -49,7 +51,7 @@ class _TimerWidgetState extends State<TimerWidget> {
           });
         },
         child: Text(
-          'Resend code',
+          context.tr(LocalisationKeys.resend_code),
           style: context.textStyle.sfProMedium.copyWith(
             color: context.colors.primaryColor,
             fontSize: 17,
@@ -64,9 +66,9 @@ class _TimerWidgetState extends State<TimerWidget> {
             fontSize: 17,
           ),
           children: [
-            TextSpan(text: 'We’ll resend in '),
+            TextSpan(text: '${context.tr(LocalisationKeys.resend_in)} '),
             TextSpan(
-              text: '$seconds second',
+              text: '$seconds ${context.tr(LocalisationKeys.second)}',
               style: context.textStyle.sfProMedium.copyWith(
                 color: context.colors.whiteColor,
                 fontSize: 17,

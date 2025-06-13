@@ -9,4 +9,5 @@ class RouteName {
   static const String dietRoute = 'diet';
   static const String profileRoute = 'profile';
   static const String successRoute = 'success_page';
+  static const String subscriptionCatalogPage = 'subscription_catalog_page';
 }

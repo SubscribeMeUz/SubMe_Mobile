@@ -39,10 +39,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       decoration: InputDecoration(
         prefixText: widget.prefixText,
         hintText: widget.labelText,
-        labelStyle: context.textStyle.robotoRegular.copyWith(
-          fontSize: 16,
-          color: Color(0xFF888888),
-        ),
+        labelStyle: context.textStyle.sfProRegular.copyWith(fontSize: 16, color: Color(0xFF888888)),
         hintStyle: context.textStyle.sfProRegular.copyWith(
           fontSize: 17,
           color: context.colors.disabledColor.withAlpha(70),

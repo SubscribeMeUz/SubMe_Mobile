@@ -56,7 +56,7 @@ class _EnterPhonePageState extends State<EnterPhonePage> {
         resizeToAvoidBottomInset: true,
         appBar: CustomAppBar(),
         bottomNavigationBar: BottomButtonBar(
-          buttonText: 'Start',
+          buttonText: context.tr(LocalisationKeys.start),
           onTap: () {
             final phoneNumber = phoneFormatter.getUnmaskedText();
             context.read<AuthBloc>().add(SendPhoneNumberEvent(phone: '998$phoneNumber'));
@@ -66,7 +66,7 @@ class _EnterPhonePageState extends State<EnterPhonePage> {
           children: [
             const Gap(16),
             Text(
-              'Your phone number',
+              context.tr(LocalisationKeys.phone_number),
               style: context.textStyle.sfProBold.copyWith(
                 color: context.colors.whiteColor,
                 fontSize: 28,
@@ -74,7 +74,7 @@ class _EnterPhonePageState extends State<EnterPhonePage> {
             ),
             const Gap(8),
             Text(
-              'We’ll send a code for verification',
+              context.tr(LocalisationKeys.code_for_verification),
               style: context.textStyle.sfProMedium.copyWith(
                 color: context.colors.disabledColor.withAlpha(70),
                 fontSize: 16,
