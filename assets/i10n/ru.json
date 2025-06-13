@@ -27,5 +27,6 @@
     "terms_agreement": "Соглашение об условиях использования",
     "enter_code": "Введите код",
     "check_sms": "Проверьте СМС",
-    "active_subscriptions": "Активные подписки"
+    "active_subscriptions": "Активные подписки",
+    "add_subscription": "Добавить подписку"
 }

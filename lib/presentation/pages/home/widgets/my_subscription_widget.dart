@@ -28,7 +28,10 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
       ),
       child:
           widget.mySubscriptions.isEmpty
-              ? CustomButton(onTap: () {}, buttonText: 'Add subscription')
+              ? CustomButton(
+                onTap: () {},
+                buttonText: context.tr(LocalisationKeys.add_subscription),
+              )
               : Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,

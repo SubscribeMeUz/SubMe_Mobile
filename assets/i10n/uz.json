@@ -28,5 +28,6 @@
     "enter_code": "Kodni kiriting",
     "verif_code_sent_to": "Tasdiqlash kodi quyidagi raqamga yuborildi:",
     "check_sms": "Smsni tekshiring",
-    "active_subscriptions": "Aktiv obunalar"
+    "active_subscriptions": "Aktiv obunalar",
+    "add_subscription": "Obuna qo'shish"
 }

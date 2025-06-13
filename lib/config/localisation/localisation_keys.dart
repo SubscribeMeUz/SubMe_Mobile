@@ -31,4 +31,5 @@ class LocalisationKeys {
   static final String favorited_trainer = 'favorited_trainer';
   static final String other_subscriptions = 'other_subscription';
   static final String active_subscriptions = 'active_subscriptions';
+  static final String add_subscription = 'add_subscription';
 }
