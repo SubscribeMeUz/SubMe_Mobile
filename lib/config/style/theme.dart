@@ -31,7 +31,7 @@ final ThemeData appLightTheme = appTheme.copyWith(
     backgroundColor: AppColors.lightTheme.backgroundColor,
     surfaceTintColor: AppColors.lightTheme.backgroundColor,
 
-    titleTextStyle: AppTextStyles.light.robotoRegular,
+    titleTextStyle: AppTextStyles.light.sfProRegular,
     toolbarHeight: 56,
     scrolledUnderElevation: 0.5,
     centerTitle: true,

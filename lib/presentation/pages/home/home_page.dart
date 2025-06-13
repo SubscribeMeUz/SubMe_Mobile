@@ -1,264 +1,147 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:gym_pro/assets/assets.dart';
+import 'package:gym_pro/components/custom_button.dart';
+import 'package:gym_pro/components/favourited_item_widget.dart';
+import 'package:gym_pro/components/horizontal_list_widget.dart';
+import 'package:gym_pro/config/localisation/app_localisation.dart';
+import 'package:gym_pro/config/localisation/localisation_keys.dart';
 import 'package:gym_pro/config/style/app_colors.dart';
+import 'package:gym_pro/config/style/app_text_style.dart';
+import 'package:gym_pro/domain/entity/favourite_entity.dart';
+import 'package:gym_pro/domain/entity/my_subscription_entity.dart';
+import 'package:gym_pro/presentation/pages/home/widgets/ad_widget.dart';
+import 'package:gym_pro/presentation/pages/home/widgets/my_subscription_widget.dart';
 
-class Abonement {
-  final String name;
-  final String imageUrl;
-  final int availableVisits;
-  final int peopleInGym;
-  final String city;
-  final String street;
-  final double rate;
-  final double price;
-  final int totalMonthlyVisits;
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
-  Abonement({
-    required this.name,
-    required this.imageUrl,
-    required this.availableVisits,
-    required this.peopleInGym,
-    this.city = '',
-    this.street = '',
-    this.rate = 0,
-    this.price = 0,
-    this.totalMonthlyVisits = 0,
-  });
+  @override
+  State<HomePage> createState() => _HomePageState();
 }
 
-const imageurl =
-    "https://landmarksarchitects.com/wp-content/uploads/2024/04/Functionality-and-Space-Planning-03.04.2024.jpg";
-
-class HomePage extends StatelessWidget {
-  final List<Abonement> myAbonements = [
-    Abonement(name: 'Fitness Pro', imageUrl: imageurl, availableVisits: 12, peopleInGym: 20),
-    Abonement(name: 'Gym Max', imageUrl: imageurl, availableVisits: 8, peopleInGym: 18),
-    Abonement(name: 'Active Life', imageUrl: imageurl, availableVisits: 10, peopleInGym: 25),
-  ];
-
-  final List<Abonement> otherAbonements = [
-    Abonement(
-      name: 'Ultra Fitness',
-      imageUrl: imageurl,
-      availableVisits: 0,
-      peopleInGym: 0,
-      city: 'New York',
-      street: '5th Avenue',
-      rate: 4.8,
-      price: 49.99,
-      totalMonthlyVisits: 30,
-    ),
-    Abonement(
-      name: 'Sport Zone',
-      imageUrl: imageurl,
-      availableVisits: 0,
-      peopleInGym: 0,
-      city: 'Los Angeles',
-      street: 'Sunset Blvd',
-      rate: 4.5,
-      price: 39.99,
-      totalMonthlyVisits: 25,
-    ),
-  ];
-
-  HomePage({super.key});
+class _HomePageState extends State<HomePage> {
+  final _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildTopBar(),
-            const SizedBox(height: 16),
-            _buildSection('My abonements', myAbonements),
-            const SizedBox(height: 24),
-            Expanded(child: _buildVerticalListSection('Other abonements', otherAbonements)),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildTopBar() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          IconButton(icon: const Icon(Icons.notifications_none), onPressed: () {}),
-          IconButton(icon: const Icon(Icons.person_outline), onPressed: () {}),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSection(String title, List<Abonement> abonements) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Text(title, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-        ),
-        const SizedBox(height: 12),
-        SizedBox(
-          height: 230,
-          child: ListView.separated(
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-            physics: BouncingScrollPhysics(),
-            itemCount: abonements.length,
-            scrollDirection: Axis.horizontal,
-            separatorBuilder: (context, index) => Gap(12),
-            itemBuilder: (context, index) {
-              return _buildAbonementCard(context, abonements[index]);
-            },
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildAbonementCard(BuildContext context, Abonement abonement) {
-    return Container(
-      width: 170,
-      decoration: BoxDecoration(
-        color: context.colors.backgroundColor,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.12),
-            blurRadius: 1,
-            offset: const Offset(0, 6),
-          ),
-        ],
-      ),
-
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(16),
-              topRight: Radius.circular(16),
-            ),
-            child: CachedNetworkImage(
-              imageUrl:
-                  'https://landmarksarchitects.com/wp-content/uploads/2024/04/Functionality-and-Space-Planning-03.04.2024.jpg',
-              height: 120,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
-          ),
-
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  abonement.name,
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-                Gap(8),
-                Text("${abonement.availableVisits} available visits"),
-                Text("${abonement.peopleInGym} people in gym"),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 120,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              titlePadding: EdgeInsets.only(left: 16, bottom: 8),
+              stretchModes: [
+                StretchMode.zoomBackground,
+                StretchMode.blurBackground,
+                StretchMode.fadeTitle,
               ],
+              title: Text(
+                'SubscribeMe',
+                style: context.textStyle.sfProBold.copyWith(
+                  fontSize: 28,
+                  color: context.colors.whiteColor,
+                ),
+              ),
+            ),
+            actions: [
+              SvgPicture.asset(Assets.svgAddIcon, height: 24, width: 24),
+              const Gap(16),
+              SvgPicture.asset(Assets.svgNotificationIcon, height: 24, width: 24),
+              const Gap(12),
+            ],
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+            sliver: SliverToBoxAdapter(
+              child: CupertinoSearchTextField(
+                controller: _searchController,
+                placeholder: context.tr(LocalisationKeys.search),
+                autocorrect: false,
+                cursorColor: context.colors.primaryColor,
+                backgroundColor: context.colors.cardDark,
+                style: context.textStyle.sfProMedium.copyWith(
+                  fontSize: 17,
+                  color: context.colors.whiteColor,
+                ),
+              ),
             ),
           ),
-        ],
-      ),
-    );
-  }
+          const SliverGap(15),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: AdWidget(
+                title: 'First Month — Free! 🎉',
+                subtitle:
+                    'Start your fitness journey today! Enjoy your first month as a gift with GymPro.',
+                imagePath: Assets.pngLogo,
+                onTap: () {},
+              ),
+            ),
+          ),
+          const SliverGap(12),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: MySubscriptionWidget(
+                mySubscriptions: [
+                  MySubscriptionEntity(
+                    id: 0,
+                    name: 'Powerhouse Gym',
+                    logoUrl:
+                        'https://landmarksarchitects.com/wp-content/uploads/2024/04/Functionality-and-Space-Planning-03.04.2024.jpg',
+                    isPopular: true,
+                    period: '6 month',
+                    finishDate: DateTime(2025, 10, 15),
+                    leftDays: 90,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SliverGap(12),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            sliver: SliverToBoxAdapter(
+              child: CustomButton(
+                onTap: () {},
+                buttonText: context.tr(LocalisationKeys.other_subscriptions),
+                buttonType: ButtonType.secondary,
+              ),
+            ),
+          ),
+          const SliverGap(12),
 
-  Widget _buildVerticalListSection(String title, List<Abonement> abonements) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(title, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 12),
-          Expanded(
-            child: ListView.separated(
-              itemCount: abonements.length,
-              separatorBuilder: (context, index) => Gap(16),
-              itemBuilder: (context, index) {
-                final ab = abonements[index];
-                return Container(
-                  decoration: BoxDecoration(
-                    color: context.colors.backgroundColor,
-                    borderRadius: BorderRadius.circular(16),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.12),
-                        blurRadius: 1,
-                        offset: const Offset(0, 6),
-                      ),
-                    ],
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: CachedNetworkImage(
-                            imageUrl:
-                                'https://landmarksarchitects.com/wp-content/uploads/2024/04/Functionality-and-Space-Planning-03.04.2024.jpg',
-                            height: 120,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                ab.name,
-                                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                '${ab.city}, ${ab.street}',
-                                style: const TextStyle(color: Colors.grey),
-                              ),
-                              const SizedBox(height: 4),
-                              Row(
-                                children: [
-                                  Icon(Icons.star, color: Colors.amber, size: 16),
-                                  Text('${ab.rate}', style: const TextStyle(fontSize: 14)),
-                                  const SizedBox(width: 12),
-                                  Text(
-                                    '\$${ab.price.toStringAsFixed(2)}',
-                                    style: const TextStyle(fontSize: 14),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                'Monthly visits: ${ab.totalMonthlyVisits}',
-                                style: const TextStyle(fontSize: 13),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
+          SliverToBoxAdapter(
+            child: HorizontalListWidget(
+              title: context.tr(LocalisationKeys.favorited_trainer),
+              listChild: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                itemCount: 7,
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return FavouritedItemWidget(
+                    entity: FavouriteEntity(
+                      imagePath:
+                          'https://landmarksarchitects.com/wp-content/uploads/2024/04/Functionality-and-Space-Planning-03.04.2024.jpg',
+                      title: 'Abdulaziz K.',
+                      subtitle: 'Experienced trainer',
+                    ),
+                    onTap: () {},
+                  );
+                },
+                separatorBuilder: (context, index) => const Gap(12),
+              ),
             ),
           ),
+          const SliverGap(150),
         ],
       ),
     );

@@ -12,6 +12,7 @@ class AppColors extends ThemeExtension<AppColors> {
   final Color modalDark;
   final Color primaryContainerDark;
   final Color secondaryColor;
+  final Color ebebf5Color;
   final Color borderColor;
   final Color disabledColor;
   final Color disabledButtonColor;
@@ -31,6 +32,7 @@ class AppColors extends ThemeExtension<AppColors> {
     required this.cardDark,
     required this.primaryContainerDark,
     required this.modalDark,
+    required this.ebebf5Color,
   });
 
   static const lightTheme = AppColors(
@@ -48,6 +50,7 @@ class AppColors extends ThemeExtension<AppColors> {
     modalDark: Color(0xff111214),
     primaryContainerDark: Color(0xff141D00),
     cardDark: Color(0xff141414),
+    ebebf5Color: Color(0xffEBEBF5),
   );
   static const darkTheme = AppColors(
     primaryColor: Color(0xff3B23C3),
@@ -64,6 +67,7 @@ class AppColors extends ThemeExtension<AppColors> {
     cardDark: Color(0xff141414),
     modalDark: Color(0xff111214),
     primaryContainerDark: Color(0xff141D00),
+    ebebf5Color: Color(0xffEBEBF5),
   );
 
   @override
@@ -83,6 +87,7 @@ class AppColors extends ThemeExtension<AppColors> {
     Color? modalDark,
     Color? cardDark,
     Color? blackColor,
+    Color? ebebf5Color,
   }) {
     return AppColors(
       primaryColor: primaryColor ?? this.primaryColor,
@@ -99,6 +104,7 @@ class AppColors extends ThemeExtension<AppColors> {
       primaryContainerDark: primaryContainerDark ?? this.primaryContainerDark,
       modalDark: modalDark ?? this.modalDark,
       blackColor: blackColor ?? this.blackColor,
+      ebebf5Color: ebebf5Color ?? this.ebebf5Color,
     );
   }
 
@@ -122,6 +128,7 @@ class AppColors extends ThemeExtension<AppColors> {
       modalDark: Color.lerp(modalDark, other.modalDark, t)!,
       cardDark: Color.lerp(cardDark, other.cardDark, t)!,
       blackColor: Color.lerp(blackColor, other.blackColor, t)!,
+      ebebf5Color: Color.lerp(ebebf5Color, other.ebebf5Color, t)!,
     );
   }
 }

@@ -8,7 +8,14 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String? titleText;
   final double leadingWidth;
   final Widget? leading;
-  const CustomAppBar({super.key, this.titleText, this.leadingWidth = 40, this.leading});
+  final List<Widget>? actions;
+  const CustomAppBar({
+    super.key,
+    this.titleText,
+    this.leadingWidth = 40,
+    this.leading,
+    this.actions,
+  });
 
   @override
   State<CustomAppBar> createState() => _CustomAppBarState();
@@ -44,6 +51,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 icon: SvgPicture.asset(Assets.svgChevronLeft),
               )
               : null),
+      actions: widget.actions,
     );
   }
 }

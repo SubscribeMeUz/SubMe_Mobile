@@ -5,6 +5,8 @@ import 'package:gym_pro/assets/assets.dart';
 import 'package:gym_pro/components/custom_app_bar.dart';
 import 'package:gym_pro/components/success_page.dart';
 import 'package:gym_pro/config/enums/bloc_status.dart';
+import 'package:gym_pro/config/localisation/app_localisation.dart';
+import 'package:gym_pro/config/localisation/localisation_keys.dart';
 import 'package:gym_pro/config/router/route_name.dart';
 import 'package:gym_pro/config/utils/frequent_methods.dart';
 import 'package:gym_pro/presentation/bloc/auth/auth_bloc.dart';
@@ -30,8 +32,8 @@ class _ConfirmNumberPageState extends State<ConfirmNumberPage> {
             RouteName.successRoute,
             extra: SuccessPageArgs(
               iconPath: Assets.svgLoginSuccess,
-              title: 'Login Successful',
-              subtitle: 'Welcome back! Manage all your gym subscriptions in one place with GymPro.',
+              title: context.tr(LocalisationKeys.login_success),
+              subtitle: context.tr(LocalisationKeys.login_success_desc),
               onSubmit: () {},
             ),
           );
