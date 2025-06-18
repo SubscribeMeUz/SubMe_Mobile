@@ -1,5 +1,6 @@
 class MySubscriptionEntity {
   final int id;
+  final int providerId;
   final String name;
   final String logoUrl;
   final bool isPopular;
@@ -9,6 +10,7 @@ class MySubscriptionEntity {
 
   const MySubscriptionEntity({
     required this.id,
+    required this.providerId,
     required this.name,
     required this.logoUrl,
     required this.isPopular,

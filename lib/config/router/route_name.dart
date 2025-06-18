@@ -10,4 +10,6 @@ class RouteName {
   static const String profileRoute = 'profile';
   static const String successRoute = 'success_page';
   static const String subscriptionCatalogPage = 'subscription_catalog_page';
+  static const String subscriptionDetailPage = 'subscription_detail_page';
+  static const String abonementsPage = 'abonements_page';
 }

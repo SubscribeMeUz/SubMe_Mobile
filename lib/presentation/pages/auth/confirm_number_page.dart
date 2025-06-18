@@ -34,7 +34,9 @@ class _ConfirmNumberPageState extends State<ConfirmNumberPage> {
               iconPath: Assets.svgLoginSuccess,
               title: context.tr(LocalisationKeys.login_success),
               subtitle: context.tr(LocalisationKeys.login_success_desc),
-              onSubmit: () {},
+              onSubmit: () {
+                // context.goNamed(RouteName.homeRoute);
+              },
             ),
           );
         }

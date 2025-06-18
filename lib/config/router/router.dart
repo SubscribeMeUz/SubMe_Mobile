@@ -9,6 +9,8 @@ import 'package:gym_pro/presentation/pages/add_subscription/subscription_catalog
 import 'package:gym_pro/presentation/pages/auth/confirm_number_page.dart';
 import 'package:gym_pro/presentation/pages/auth/enter_phone_page.dart';
 import 'package:gym_pro/presentation/pages/auth/welcome_page.dart';
+import 'package:gym_pro/presentation/pages/category/abonements_page.dart';
+import 'package:gym_pro/presentation/pages/category/subscription_detail_page.dart';
 import 'package:gym_pro/presentation/pages/home/home_page.dart';
 import 'package:gym_pro/presentation/pages/main/main_page.dart';
 import 'package:gym_pro/presentation/pages/profile/profile_page.dart';
@@ -18,7 +20,7 @@ final rootNavigatorKey = GlobalKey<NavigatorState>();
 
 class AppRouter {
   static final router = GoRouter(
-    initialLocation: '/profile',
+    initialLocation: '/subscription_detail_page',
     navigatorKey: rootNavigatorKey,
     routes: [
       GoRoute(
@@ -63,6 +65,19 @@ class AppRouter {
         path: '/subscription_catalog_page',
         name: RouteName.subscriptionCatalogPage,
         builder: (context, state) => SubscriptionCatalogPage(),
+      ),
+
+      GoRoute(
+        path: '/subscription_detail_page',
+        name: RouteName.subscriptionDetailPage,
+        builder: (context, state) => SubscriptionDetailPage(),
+        routes: [
+          GoRoute(
+            path: '/abonements_page',
+            name: RouteName.abonementsPage,
+            builder: (context, state) => AbonementsPage(),
+          ),
+        ],
       ),
 
       StatefulShellRoute.indexedStack(

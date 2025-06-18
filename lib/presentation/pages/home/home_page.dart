@@ -92,10 +92,11 @@ class _HomePageState extends State<HomePage> {
                 mySubscriptions: [
                   MySubscriptionEntity(
                     id: 0,
+                    providerId: 1,
                     name: 'Powerhouse Gym',
                     logoUrl:
                         'https://landmarksarchitects.com/wp-content/uploads/2024/04/Functionality-and-Space-Planning-03.04.2024.jpg',
-                    isPopular: true,
+                    isPopular: false,
                     period: '6 month',
                     finishDate: DateTime(2025, 10, 15),
                     leftDays: 90,
@@ -141,6 +142,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+
           const SliverGap(150),
         ],
       ),

@@ -5,6 +5,10 @@
         android:label="gym_pro"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyDUeg__GwoicGwcRfzAABXOw_xU69lRtNA"/>
+        
         <activity
             android:name=".MainActivity"
             android:exported="true"

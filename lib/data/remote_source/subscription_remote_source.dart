@@ -1,8 +1,9 @@
 import 'package:gym_pro/config/constants/constants.dart';
 import 'package:gym_pro/config/network/api_exception.dart';
 import 'package:gym_pro/config/network/dio_settings.dart';
+import 'package:gym_pro/data/model/my_abonement_list_model.dart';
+import 'package:gym_pro/data/model/provider_abonements_model.dart';
 import 'package:gym_pro/data/model/subscription_list_model.dart';
-import 'package:gym_pro/data/model/subscription_model.dart';
 
 class SubscriptionRemoteSource {
   final DioSettings dio;
@@ -17,12 +18,12 @@ class SubscriptionRemoteSource {
     return SubscriptionListModel.fromJson(data);
   }
 
-  Future<List<SubscriptionModel>> getMySubscriptions() async {
+  Future<MyAbonementsListModel> getMySubscriptions() async {
     const mySubscriptions = Constants.mySubscriptionsListApi;
 
     final data = await dio.dioMethod(mySubscriptions, RESTMethodTypes.GET);
 
-    return (data as List).map((e) => SubscriptionModel.fromJson(e)).toList();
+    return MyAbonementsListModel.fromJson(data);
   }
 
   Future<SubscriptionListModel> getSubscriptionDetail(int providerId) async {
@@ -31,5 +32,13 @@ class SubscriptionRemoteSource {
     final data = await dio.dioMethod(subsDetail, RESTMethodTypes.GET);
 
     return SubscriptionListModel.fromJson(data);
+  }
+
+  Future<ProviderAbonementsModel> getTariffOfProviderId(int providerId) async {
+    final tariffOfProvider = '${Constants.getAllTarifsOfProviderApi}/$providerId';
+
+    final data = await dio.dioMethod(tariffOfProvider, RESTMethodTypes.GET);
+
+    return ProviderAbonementsModel.fromJson(data);
   }
 }

@@ -37,9 +37,12 @@ class _CustomAppBarState extends State<CustomAppBar> {
                 style: context.textStyle.sfProBold.copyWith(color: context.colors.whiteColor),
               )
               : null,
-
       centerTitle: true,
       leadingWidth: widget.leadingWidth,
+      bottom: PreferredSize(
+        preferredSize: const Size.fromHeight(0.5),
+        child: Container(color: context.colors.ebebf5Color.withAlpha(60), height: 0.5),
+      ),
       leading:
           widget.leading ??
           (Navigator.canPop(context)

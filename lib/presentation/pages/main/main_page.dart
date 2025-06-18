@@ -29,13 +29,11 @@ class MainPage extends StatelessWidget {
         child: SizedBox(
           height: 60,
           width: 60,
-          child: FittedBox(
-            child: FloatingActionButton(
-              onPressed: () {},
-              shape: CircleBorder(),
-              backgroundColor: context.colors.primaryColor,
-              child: SvgPicture.asset(Assets.svgQrScanIcon, height: 28, width: 28),
-            ),
+          child: FloatingActionButton(
+            onPressed: () {},
+            shape: CircleBorder(),
+            backgroundColor: context.colors.primaryColor,
+            child: SvgPicture.asset(Assets.svgQrScanIcon, height: 28, width: 28),
           ),
         ),
       ),
