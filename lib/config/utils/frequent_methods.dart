@@ -3,8 +3,12 @@ import 'package:intl/intl.dart';
 
 class FrequentMethods {
   static String phoneFormatter(String phone) {
-    if (phone.length == 13) {
-      return '+ ${phone.substring(1, 4)} ${phone.substring(4, 6)} ${phone.substring(6, 9)} ${phone.substring(9, 11)} ${phone.substring(11, 13)}';
+    phone = phone.replaceAll('+', '').replaceAll(' ', '').trim();
+    if (phone.length == 12) {
+      return '+${phone.substring(0, 3)} ${phone.substring(3, 5)} ${phone.substring(5, 8)} ${phone.substring(8, 10)} ${phone.substring(10, 12)}';
+    }
+    if (phone.length == 9) {
+      return '+998 ${phone.substring(3, 5)} ${phone.substring(5, 8)} ${phone.substring(8, 10)} ${phone.substring(10, 12)}';
     }
     return '';
   }

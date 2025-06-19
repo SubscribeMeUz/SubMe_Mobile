@@ -38,15 +38,18 @@ class AbonementModel {
   }
 
   MySubscriptionEntity get toEntity {
+    //TODO change when api is ready
+    final expireTime = DateTime.now().add(Duration(days: 20));
     return MySubscriptionEntity(
       id: id ?? 0,
       providerId: providerId ?? 0,
       name: name ?? '',
-      leftDays: expiryDays ?? 0,
-      logoUrl: '',
+      leftDays: expireTime.difference(DateTime.now()).inDays,
+      logoUrl:
+          'http://193.124.115.127:8000/images/3f0aa6ba-f0f4-465c-a56d-5fc88bc71d50-photo_2025-06-09_16-46-42.jpg',
       isPopular: false,
-      period: 'expiryDays days',
-      finishDate: DateTime.now(),
+      period: '$expiryDays',
+      finishDate: expireTime,
     );
   }
 }

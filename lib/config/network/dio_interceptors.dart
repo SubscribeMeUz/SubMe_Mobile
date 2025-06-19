@@ -2,6 +2,8 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:gym_pro/config/cache/cache_keys.dart';
+import 'package:gym_pro/config/cache/local_storage.dart';
 import 'package:gym_pro/config/constants/constants.dart';
 import 'package:gym_pro/config/network/api_exception.dart';
 import 'package:gym_pro/config/network/dio_connectivity_request_retrier.dart';
@@ -24,10 +26,10 @@ class CustomDioInterceptor extends Interceptor {
 
   @override
   Future onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
-    // var tokenIsExpired = JwtDecoder.isExpired(Caching.getToken());
-    // if (tokenIsExpired) {
-    //   await refreshAndSaveParallelRequests(options, handler);
-    // }
+    final accessToken = LocalStorage.getString(CacheKeys.accessToken);
+
+    options.headers['Authorization'] = 'Bearer $accessToken';
+
     return super.onRequest(options, handler);
   }
 

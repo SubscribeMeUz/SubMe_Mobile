@@ -94,10 +94,10 @@ class _MySubscriptionItemWidget extends StatelessWidget {
                   ),
                   const Gap(2),
                   Text(
-                    entity.period,
+                    '${entity.period} days',
                     style: context.textStyle.sfProMedium.copyWith(
                       fontSize: 14,
-                      color: context.colors.ebebf5Color.withAlpha(60),
+                      color: context.colors.ebebf5Color.withAlpha(80),
                     ),
                   ),
                 ],
@@ -121,7 +121,7 @@ class _MySubscriptionItemWidget extends StatelessWidget {
                 DateFormat.yMMMMd().format(entity.finishDate),
                 style: context.textStyle.sfProRegular.copyWith(
                   fontSize: 14,
-                  color: context.colors.ebebf5Color.withAlpha(60),
+                  color: context.colors.ebebf5Color.withAlpha(80),
                 ),
               ),
             ],

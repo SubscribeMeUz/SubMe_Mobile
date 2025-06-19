@@ -2,7 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:gym_pro/assets/assets.dart';
+import 'package:gym_pro/config/cache/cache_keys.dart';
+import 'package:gym_pro/config/cache/local_storage.dart';
 import 'package:gym_pro/config/router/route_name.dart';
+import 'package:gym_pro/config/style/app_colors.dart';
 import 'package:gym_pro/config/style/app_text_style.dart';
 
 class SplashPage extends StatefulWidget {
@@ -21,9 +25,13 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
 
   Future<void> nextPage() async {
     await Future.delayed(Duration(seconds: 3));
-
+    final isTokenAvailable = LocalStorage.getString(CacheKeys.accessToken, defValue: '').isNotEmpty;
     if (mounted) {
-      context.goNamed(RouteName.welcomeRoute);
+      if (isTokenAvailable) {
+        context.goNamed(RouteName.homeRoute);
+      } else {
+        context.goNamed(RouteName.welcomeRoute);
+      }
     }
   }
 
@@ -31,9 +39,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(toolbarHeight: 0),
-      body: Center(
-        child: Text('Gym Pro', style: context.textStyle.sfProBold.copyWith(fontSize: 22)),
-      ),
+      body: Center(child: Image.asset(Assets.pngLogo, width: 270, height: 270)),
     );
   }
 }

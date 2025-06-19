@@ -76,7 +76,7 @@ class _EnterPhonePageState extends State<EnterPhonePage> {
             Text(
               context.tr(LocalisationKeys.code_for_verification),
               style: context.textStyle.sfProMedium.copyWith(
-                color: context.colors.disabledColor.withAlpha(70),
+                color: context.colors.ebebf5Color.withAlpha(90),
                 fontSize: 16,
               ),
             ),

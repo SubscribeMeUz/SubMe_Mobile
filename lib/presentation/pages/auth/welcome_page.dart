@@ -29,7 +29,7 @@ class WelcomePage extends StatelessWidget {
               textAlign: TextAlign.center,
               text: TextSpan(
                 style: context.textStyle.sfProMedium.copyWith(
-                  color: context.colors.disabledColor.withAlpha(70),
+                  color: context.colors.ebebf5Color.withAlpha(92),
                   fontSize: 14,
                 ),
                 children: [
@@ -74,7 +74,7 @@ class WelcomePage extends StatelessWidget {
             Image.asset(Assets.welcomePng),
             const Gap(24),
             Text(
-              'My Subscriptions',
+              'SubscribeMe',
               style: context.textStyle.sfProBold.copyWith(
                 color: context.colors.whiteColor,
                 fontSize: 34,
@@ -83,7 +83,7 @@ class WelcomePage extends StatelessWidget {
             Text(
               'all your subscriptions in one app',
               style: context.textStyle.sfProMedium.copyWith(
-                color: context.colors.disabledColor.withAlpha(70),
+                color: context.colors.ebebf5Color.withAlpha(92),
                 fontSize: 17,
               ),
             ),
@@ -92,7 +92,7 @@ class WelcomePage extends StatelessWidget {
               onTap: () {
                 context.goNamed(RouteName.enterPhoneRoute);
               },
-              buttonText: 'Start',
+              buttonText: context.tr(LocalisationKeys.start),
             ),
             const Gap(12),
             EmailWidget(iconPath: Assets.appleLogo, text: 'Continue with Apple', onTap: () {}),

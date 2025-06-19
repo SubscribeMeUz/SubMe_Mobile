@@ -5,6 +5,7 @@ import 'package:gym_pro/components/success_page.dart';
 import 'package:gym_pro/config/di/app_injection.dart';
 import 'package:gym_pro/config/router/route_name.dart';
 import 'package:gym_pro/presentation/bloc/auth/auth_bloc.dart';
+import 'package:gym_pro/presentation/bloc/subscriptions/subscription_bloc.dart';
 import 'package:gym_pro/presentation/pages/add_subscription/subscription_catalog_page.dart';
 import 'package:gym_pro/presentation/pages/auth/confirm_number_page.dart';
 import 'package:gym_pro/presentation/pages/auth/enter_phone_page.dart';
@@ -20,7 +21,7 @@ final rootNavigatorKey = GlobalKey<NavigatorState>();
 
 class AppRouter {
   static final router = GoRouter(
-    initialLocation: '/subscription_detail_page',
+    initialLocation: '/splash',
     navigatorKey: rootNavigatorKey,
     routes: [
       GoRoute(
@@ -94,18 +95,16 @@ class AppRouter {
               GoRoute(
                 path: '/home',
                 name: RouteName.homeRoute,
-                builder: (context, state) => HomePage(),
+                builder:
+                    (context, state) => BlocProvider(
+                      create: (_) => SubscriptionBloc(repository: getIt.get()),
+                      child: HomePage(),
+                    ),
               ),
             ],
           ),
           StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: '/home1',
-                // name: RouteName.homeRoute,
-                builder: (context, state) => HomePage(),
-              ),
-            ],
+            routes: [GoRoute(path: '/home1', builder: (context, state) => HomePage())],
           ),
           StatefulShellBranch(
             routes: [

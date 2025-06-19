@@ -1,4 +1,58 @@
+import 'dart:async';
+
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gym_pro/config/enums/bloc_status.dart';
+import 'package:gym_pro/config/network/api_exception.dart';
+import 'package:gym_pro/domain/entity/my_subscription_entity.dart';
+import 'package:gym_pro/domain/entity/subcription_entity.dart';
+import 'package:gym_pro/domain/repository/subscription_repository.dart';
 
 part 'subscription_event.dart';
 part 'subscription_state.dart';
+
+class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
+  final SubscriptionRepository repository;
+  SubscriptionBloc({required this.repository}) : super(SubscriptionState()) {
+    on<GetMySubscriptionsEvent>(_getMySubscription);
+    on<GetSubscriptionEvent>(_getSubscriptions);
+  }
+
+  FutureOr<void> _getMySubscription(
+    GetMySubscriptionsEvent event,
+    Emitter<SubscriptionState> emit,
+  ) async {
+    try {
+      emit(state.copyWith(status: BlocStatus.loading));
+
+      final data = await repository.getMySubscriptions();
+
+      emit(
+        state.copyWith(
+          status: BlocStatus.success,
+          myAbonements: data.$1,
+          myAbonementsCount: data.$2,
+        ),
+      );
+    } on ApiException catch (e) {
+      emit(state.copyWith(status: BlocStatus.failure, errorMessage: e.errMessage));
+    } catch (e) {
+      emit(state.copyWith(status: BlocStatus.failure, errorMessage: '$e'));
+    }
+  }
+
+  FutureOr<void> _getSubscriptions(
+    GetSubscriptionEvent event,
+    Emitter<SubscriptionState> emit,
+  ) async {
+    try {
+      final data = await repository.getAll();
+
+      emit(state.copyWith(status: BlocStatus.success, subscriptions: data.$1));
+    } on ApiException catch (e) {
+      emit(state.copyWith(status: BlocStatus.failure, errorMessage: e.errMessage));
+    } catch (e) {
+      emit(state.copyWith(status: BlocStatus.failure, errorMessage: '$e'));
+    }
+  }
+}
