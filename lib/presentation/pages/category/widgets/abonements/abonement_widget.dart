@@ -10,29 +10,37 @@ enum AbonType { first, sec }
 class AbonementWidget extends StatelessWidget {
   final bool isHorizontal;
   final List<AbonementBlock> blocks;
-  final int chosenIndex;
+  final int? chosenId;
+  final void Function(int) onChoose;
   const AbonementWidget({
     super.key,
     required this.blocks,
     required this.isHorizontal,
-    required this.chosenIndex,
+    required this.chosenId,
+    required this.onChoose,
   });
 
   @override
   Widget build(BuildContext context) {
     if (isHorizontal) {
-      return _HorizontalList(blocks: blocks);
+      return _HorizontalList(blocks: blocks, chosenId: chosenId, onChoose: onChoose);
     } else {
-      return _VerticalList(blocks: blocks, chosenIndex: chosenIndex);
+      return _VerticalList(blocks: blocks, chosenId: chosenId, onChoose: onChoose);
     }
   }
 }
 
 class _VerticalList extends StatelessWidget {
   final List<AbonementBlock> blocks;
-  final int chosenIndex;
+  final int? chosenId;
   final bool isPopular;
-  const _VerticalList({required this.blocks, this.isPopular = false, required this.chosenIndex});
+  final void Function(int) onChoose;
+  const _VerticalList({
+    required this.blocks,
+    this.isPopular = false,
+    required this.chosenId,
+    required this.onChoose,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -43,15 +51,22 @@ class _VerticalList extends StatelessWidget {
       separatorBuilder: (context, index) => const Gap(10),
       itemBuilder: (context, index) {
         final item = blocks[0].options[index];
-        return AbonementItem(isChosen: chosenIndex == index, isHorizontal: false, option: item);
+        return AbonementItem(
+          onTap: onChoose,
+          isChosen: chosenId == item.id,
+          isHorizontal: false,
+          option: item,
+        );
       },
     );
   }
 }
 
 class _HorizontalList extends StatelessWidget {
-  const _HorizontalList({required this.blocks});
+  const _HorizontalList({required this.blocks, required this.chosenId, required this.onChoose});
 
+  final int? chosenId;
+  final void Function(int) onChoose;
   final List<AbonementBlock> blocks;
 
   @override
@@ -79,7 +94,7 @@ class _HorizontalList extends StatelessWidget {
               const Gap(15),
             ],
             SizedBox(
-              height: 112,
+              height: 113,
               child: ListView.separated(
                 clipBehavior: Clip.none,
                 scrollDirection: Axis.horizontal,
@@ -89,7 +104,8 @@ class _HorizontalList extends StatelessWidget {
                 separatorBuilder: (context, index) => const Gap(10),
                 itemBuilder: (context, index) {
                   return AbonementItem(
-                    isChosen: false,
+                    onTap: onChoose,
+                    isChosen: chosenId == item.options[index].id,
                     isHorizontal: true,
                     option: item.options[index],
                   );

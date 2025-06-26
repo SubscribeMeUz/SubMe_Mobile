@@ -35,6 +35,7 @@ class ProviderAbonementsModel {
       id: id,
       title: title,
       logo: logo,
+      isHorizontal: plansByTab.entries.length > 1,
       tabEntity: tabs?.map((e) => TabEntity(title: e.label, value: e.value)).toList(),
       abonements: plansByTab.map(
         (key, value) => MapEntry(key, value.map((e) => e.toEntity).toList()),

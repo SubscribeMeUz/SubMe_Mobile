@@ -27,13 +27,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
 
       final data = await repository.getMySubscriptions();
 
-      emit(
-        state.copyWith(
-          status: BlocStatus.success,
-          myAbonements: data.$1,
-          myAbonementsCount: data.$2,
-        ),
-      );
+      emit(state.copyWith(status: BlocStatus.success, myAbonements: data));
     } on ApiException catch (e) {
       emit(state.copyWith(status: BlocStatus.failure, errorMessage: e.errMessage));
     } catch (e) {

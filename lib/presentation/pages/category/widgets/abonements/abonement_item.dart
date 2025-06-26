@@ -8,20 +8,28 @@ class AbonementItem extends StatelessWidget {
   final bool isHorizontal;
   final bool isChosen;
   final AbonementOptionEntity option;
+  final void Function(int) onTap;
+
   const AbonementItem({
     super.key,
     required this.isHorizontal,
     required this.option,
     required this.isChosen,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    if (isHorizontal) {
-      return _HorizontalAbonItem(option: option);
-    } else {
-      return _VerticalAbonItem(option: option, isChosen: isChosen);
-    }
+    return GestureDetector(
+      onTap: () {
+        onTap(option.id);
+      },
+      behavior: HitTestBehavior.opaque,
+      child:
+          isHorizontal
+              ? _HorizontalAbonItem(option: option, isChosen: isChosen)
+              : _VerticalAbonItem(option: option, isChosen: isChosen),
+    );
   }
 }
 
@@ -83,7 +91,8 @@ class _VerticalAbonItem extends StatelessWidget {
 
 class _HorizontalAbonItem extends StatelessWidget {
   final AbonementOptionEntity option;
-  const _HorizontalAbonItem({required this.option});
+  final bool isChosen;
+  const _HorizontalAbonItem({required this.option, required this.isChosen});
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +104,7 @@ class _HorizontalAbonItem extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             color: context.colors.containerDark,
+            border: isChosen ? Border.all(color: context.colors.primaryColor, width: 1) : null,
           ),
           child: Column(
             children: [

@@ -6,8 +6,6 @@ import 'package:gym_pro/assets/assets.dart';
 import 'package:gym_pro/config/cache/cache_keys.dart';
 import 'package:gym_pro/config/cache/local_storage.dart';
 import 'package:gym_pro/config/router/route_name.dart';
-import 'package:gym_pro/config/style/app_colors.dart';
-import 'package:gym_pro/config/style/app_text_style.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});

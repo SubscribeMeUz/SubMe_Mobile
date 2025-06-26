@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gym_pro/assets/assets.dart';
 import 'package:gym_pro/components/custom_button.dart';
 import 'package:gym_pro/components/favourited_item_widget.dart';
@@ -10,6 +11,7 @@ import 'package:gym_pro/components/horizontal_list_widget.dart';
 import 'package:gym_pro/config/enums/bloc_status.dart';
 import 'package:gym_pro/config/localisation/app_localisation.dart';
 import 'package:gym_pro/config/localisation/localisation_keys.dart';
+import 'package:gym_pro/config/router/route_name.dart';
 import 'package:gym_pro/config/style/app_colors.dart';
 import 'package:gym_pro/config/style/app_text_style.dart';
 import 'package:gym_pro/domain/entity/favourite_entity.dart';
@@ -103,7 +105,15 @@ class _HomePageState extends State<HomePage> {
                       child: CircularProgressIndicator(color: context.colors.primaryColor),
                     );
                   }
-                  return MySubscriptionWidget(mySubscriptions: state.myAbonements);
+                  return MySubscriptionWidget(
+                    mySubscriptions: state.myAbonements,
+                    onTapIndex: (index) {
+                      context.goNamed(
+                        RouteName.subscriptionDetailPage,
+                        extra: state.myAbonements[index].providerId,
+                      );
+                    },
+                  );
                 },
               ),
             ),

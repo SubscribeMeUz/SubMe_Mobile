@@ -6,6 +6,7 @@ class Constants {
   static const String verifyAuthApi = 'user/auth/verify-otp';
   static const String getSubscriptionListApi = 'app/providers/get/all';
   static const String subscriptionDetailApi = 'app/providers/get';
-  static const String mySubscriptionsListApi = 'web/aboniments/get/my-aboniments';
-  static const String getAllTarifsOfProviderApi = 'web/aboniments/get/by-provider';
+  static const String mySubscriptionsListApi = 'new-aboniments/get/my-aboniments';
+  static const String getAllTarifsOfProviderApi = 'new-aboniments/get/by-provider';
+  static const String refreshTokenApi = 'user/auth/refresh';
 }

@@ -7,6 +7,8 @@ class MySubscriptionEntity {
   final String period;
   final DateTime finishDate;
   final int leftDays;
+  final int totalCount;
+  final int leftCount;
 
   const MySubscriptionEntity({
     required this.id,
@@ -17,5 +19,7 @@ class MySubscriptionEntity {
     required this.period,
     required this.finishDate,
     required this.leftDays,
+    required this.totalCount,
+    required this.leftCount,
   });
 }

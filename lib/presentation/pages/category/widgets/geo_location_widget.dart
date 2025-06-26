@@ -41,10 +41,7 @@ class _GeoLocationWidgetState extends State<GeoLocationWidget> {
               borderRadius: BorderRadius.circular(12),
               child: GoogleMap(
                 zoomControlsEnabled: false,
-                initialCameraPosition: CameraPosition(
-                  target: LatLng(41.22132340, 69.85974060),
-                  zoom: 10,
-                ),
+                initialCameraPosition: CameraPosition(target: widget.latLng, zoom: 13),
                 onMapCreated: (GoogleMapController controller) {
                   _controller = controller;
                 },

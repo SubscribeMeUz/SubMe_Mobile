@@ -11,7 +11,8 @@ import 'package:intl/intl.dart';
 
 class MySubscriptionWidget extends StatefulWidget {
   final List<MySubscriptionEntity> mySubscriptions;
-  const MySubscriptionWidget({super.key, required this.mySubscriptions});
+  final void Function(int) onTapIndex;
+  const MySubscriptionWidget({super.key, required this.mySubscriptions, required this.onTapIndex});
 
   @override
   State<MySubscriptionWidget> createState() => _MySubscriptionWidgetState();
@@ -45,11 +46,17 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                   ),
                   ListView.builder(
                     padding: EdgeInsets.zero,
-                    itemCount: 3,
+                    itemCount: widget.mySubscriptions.length,
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
-                      return _MySubscriptionItemWidget(entity: widget.mySubscriptions[0]);
+                      return GestureDetector(
+                        onTap: () {
+                          widget.onTapIndex(index);
+                        },
+                        behavior: HitTestBehavior.opaque,
+                        child: _MySubscriptionItemWidget(entity: widget.mySubscriptions[index]),
+                      );
                     },
                   ),
                 ],

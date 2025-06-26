@@ -3,11 +3,13 @@ class ProviderAbonementsEntity {
   final String title;
   final String logo;
   final List<TabEntity>? tabEntity;
+  final bool isHorizontal;
   final Map<String, List<AbonementBlock>> abonements;
 
   const ProviderAbonementsEntity({
     required this.id,
     required this.title,
+    required this.isHorizontal,
     required this.logo,
     required this.tabEntity,
     required this.abonements,

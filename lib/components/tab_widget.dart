@@ -5,8 +5,14 @@ import 'package:gym_pro/config/style/app_text_style.dart';
 class TabWidget extends StatelessWidget {
   final TabController tabController;
   final List<Tab> tabs;
+  final void Function(int) onTap;
 
-  const TabWidget({required this.tabController, required this.tabs, super.key});
+  const TabWidget({
+    required this.tabController,
+    required this.tabs,
+    super.key,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +24,7 @@ class TabWidget extends StatelessWidget {
       ),
       child: TabBar(
         controller: tabController,
+        onTap: onTap,
         indicatorSize: TabBarIndicatorSize.tab,
         dividerColor: Colors.transparent,
         indicator: BoxDecoration(
