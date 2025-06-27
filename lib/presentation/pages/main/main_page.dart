@@ -25,7 +25,6 @@ class MainPage extends StatelessWidget {
     return Scaffold(
       body: navigationShell,
       extendBodyBehindAppBar: true,
-
       floatingActionButton:
           isShowBottomNavBar
               ? Padding(
