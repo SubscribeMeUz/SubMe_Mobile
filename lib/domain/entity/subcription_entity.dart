@@ -6,6 +6,7 @@ class SubscriptionEntity {
   final String? logoUrl;
   final LatLng? latLng;
   final String? necessaryTools;
+  final double? discount;
 
   const SubscriptionEntity({
     required this.id,
@@ -13,5 +14,6 @@ class SubscriptionEntity {
     required this.logoUrl,
     required this.latLng,
     required this.necessaryTools,
+    required this.discount,
   });
 }

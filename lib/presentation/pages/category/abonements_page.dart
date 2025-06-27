@@ -27,7 +27,7 @@ class _AbonementsPageState extends State<AbonementsPage> with TickerProviderStat
   void initState() {
     super.initState();
 
-    context.read<AbonementBloc>().add(GetProviderAbonementsEvent(providerId: 7));
+    context.read<AbonementBloc>().add(GetProviderAbonementsEvent(providerId: widget.providerId));
     _tabController = TabController(length: 0, vsync: this);
   }
 

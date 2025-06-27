@@ -12,6 +12,8 @@ import 'package:gym_pro/presentation/pages/auth/confirm_number_page.dart';
 import 'package:gym_pro/presentation/pages/auth/enter_phone_page.dart';
 import 'package:gym_pro/presentation/pages/auth/welcome_page.dart';
 import 'package:gym_pro/presentation/pages/category/abonements_page.dart';
+import 'package:gym_pro/presentation/pages/category/my_abonements_page.dart';
+import 'package:gym_pro/presentation/pages/category/provider_list_page.dart';
 import 'package:gym_pro/presentation/pages/category/subscription_detail_page.dart';
 import 'package:gym_pro/presentation/pages/home/home_page.dart';
 import 'package:gym_pro/presentation/pages/main/main_page.dart';
@@ -22,7 +24,7 @@ final rootNavigatorKey = GlobalKey<NavigatorState>();
 
 class AppRouter {
   static final subcriptionDetailPage = GoRoute(
-    path: '/subscription_detail_page',
+    path: 'subscription_detail_page',
     name: RouteName.subscriptionDetailPage,
     builder:
         (context, state) => BlocProvider(
@@ -32,7 +34,7 @@ class AppRouter {
         ),
     routes: [
       GoRoute(
-        path: '/abonements_page',
+        path: 'abonements_page',
         name: RouteName.abonementsPage,
         builder:
             (context, state) => BlocProvider(
@@ -109,7 +111,28 @@ class AppRouter {
                       create: (_) => SubscriptionBloc(repository: getIt.get()),
                       child: HomePage(),
                     ),
-                routes: [subcriptionDetailPage],
+                routes: [
+                  subcriptionDetailPage,
+                  GoRoute(
+                    path: '/catalog',
+                    name: RouteName.providersRoute,
+                    builder:
+                        (context, state) => BlocProvider(
+                          create: (_) => SubscriptionBloc(repository: getIt.get()),
+                          child: ProviderListPage(),
+                        ),
+                  ),
+                  GoRoute(
+                    path: '/my_subscriptions',
+                    name: RouteName.mySubscriptionsRoute,
+                    builder:
+                        (context, state) => BlocProvider(
+                          create: (_) => SubscriptionBloc(repository: getIt.get()),
+                          child: MySubscriptionsPage(),
+                        ),
+                    // routes: [subcriptionDetailPage],
+                  ),
+                ],
               ),
             ],
           ),

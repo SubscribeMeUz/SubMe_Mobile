@@ -59,7 +59,8 @@ class _ProfilePageState extends State<ProfilePage> {
           const Gap(4),
           Center(
             child: Text(
-              '+998 (99) 090-09-98',
+              'Phone number',
+              // '+998 (99) 090-09-98',
               style: context.textStyle.sfProRegular.copyWith(
                 color: context.colors.ebebf5Color,
                 fontSize: 15,

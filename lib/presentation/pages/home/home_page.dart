@@ -59,7 +59,12 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             actions: [
-              SvgPicture.asset(Assets.svgAddIcon, height: 24, width: 24),
+              GestureDetector(
+                onTap: () {
+                  context.goNamed(RouteName.providersRoute);
+                },
+                child: SvgPicture.asset(Assets.svgAddIcon, height: 24, width: 24),
+              ),
               const Gap(16),
               SvgPicture.asset(Assets.svgNotificationIcon, height: 24, width: 24),
               const Gap(12),
@@ -123,8 +128,10 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             sliver: SliverToBoxAdapter(
               child: CustomButton(
-                onTap: () {},
-                buttonText: context.tr(LocalisationKeys.other_subscriptions),
+                onTap: () {
+                  context.goNamed(RouteName.mySubscriptionsRoute);
+                },
+                buttonText: context.tr(LocalisationKeys.my_subscriptions),
                 buttonType: ButtonType.secondary,
               ),
             ),

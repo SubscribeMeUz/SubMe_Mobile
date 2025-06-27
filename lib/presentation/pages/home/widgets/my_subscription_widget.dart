@@ -84,7 +84,10 @@ class _MySubscriptionItemWidget extends StatelessWidget {
                 height: 44,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  image: DecorationImage(image: CachedNetworkImageProvider(entity.logoUrl)),
+                  image: DecorationImage(
+                    image: CachedNetworkImageProvider(entity.logoUrl),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               const Gap(12),
@@ -116,7 +119,7 @@ class _MySubscriptionItemWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                '${entity.leftDays} days',
+                '${entity.leftCount} / ${entity.totalCount}',
                 style: context.textStyle.sfProMedium.copyWith(
                   fontSize: 17,
                   color: context.colors.whiteColor,

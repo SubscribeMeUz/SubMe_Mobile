@@ -13,7 +13,9 @@ class MainPage extends StatelessWidget {
   static const tabRootRoutes = ['/home', '/assistant', '/statistics', '/profile'];
 
   void _goBranch(int index) {
-    navigationShell.goBranch(index, initialLocation: index == navigationShell.currentIndex);
+    if (index == 0 || index == 3) {
+      navigationShell.goBranch(index, initialLocation: index == navigationShell.currentIndex);
+    }
   }
 
   @override

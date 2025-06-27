@@ -3,7 +3,7 @@ part of 'subscription_bloc.dart';
 class SubscriptionState extends Equatable {
   final BlocStatus status;
   final List<MySubscriptionEntity> myAbonements;
-  final List<SubscriptionEntity> subscriptions;
+  final List<ProviderEntity> subscriptions;
   final int subscriptionCount;
   final String? errorMessage;
 
@@ -21,7 +21,7 @@ class SubscriptionState extends Equatable {
   SubscriptionState copyWith({
     BlocStatus? status,
     List<MySubscriptionEntity>? myAbonements,
-    List<SubscriptionEntity>? subscriptions,
+    List<ProviderEntity>? subscriptions,
     String? errorMessage,
     int? subscriptionCount,
   }) {

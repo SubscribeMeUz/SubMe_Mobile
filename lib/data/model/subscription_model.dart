@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:gym_pro/data/model/owner_model.dart';
 import 'package:gym_pro/domain/entity/subcription_entity.dart';
@@ -9,6 +11,7 @@ class SubscriptionModel {
   String? locationLong;
   String? necessaryTools;
   String? logoUrl;
+  List<int?>? discounts;
   OwnerModel? owner;
   String? registredDate;
 
@@ -21,6 +24,7 @@ class SubscriptionModel {
     this.logoUrl,
     this.owner,
     this.registredDate,
+    this.discounts,
   });
 
   SubscriptionModel.fromJson(Map<String, dynamic> json) {
@@ -29,7 +33,8 @@ class SubscriptionModel {
     locationLatt = json['location_latt'];
     locationLong = json['location_long'];
     necessaryTools = json['necessary_tools'];
-    logoUrl = json['logo_url'];
+    logoUrl = json['logo'];
+    discounts = json['discounts'].cast<int?>();
     owner = json['owner'] != null ? OwnerModel.fromJson(json['owner']) : null;
     registredDate = json['registred_date'];
   }
@@ -47,6 +52,10 @@ class SubscriptionModel {
       logoUrl: logoUrl,
       latLng: LatLng(latitude, longitude),
       necessaryTools: necessaryTools,
+      discount:
+          (discounts != null && discounts?.isNotEmpty == true)
+              ? (discounts!.map((e) => e!.toInt()).toList()).reduce(max).toDouble()
+              : null,
     );
   }
 }

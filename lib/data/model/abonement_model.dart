@@ -32,7 +32,6 @@ class MyAbonementModel {
   }
 
   MySubscriptionEntity get toEntity {
-    //TODO change when api is ready
     final expireTime = expireDate.toDateTime();
     return MySubscriptionEntity(
       id: id ?? 0,

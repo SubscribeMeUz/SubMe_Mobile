@@ -81,6 +81,7 @@ class _SubscriptionCatalogPageState extends State<SubscriptionCatalogPage> {
               itemBuilder: (context, index) {
                 return SubscriptionCircleWidget(
                   entity: SubscriptionEntity(
+                    discount: 20,
                     logoUrl:
                         'https://landmarksarchitects.com/wp-content/uploads/2024/04/Functionality-and-Space-Planning-03.04.2024.jpg',
                     latLng: null,
