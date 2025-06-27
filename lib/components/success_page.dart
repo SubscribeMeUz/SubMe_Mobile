@@ -9,7 +9,7 @@ class SuccessPageArgs {
   final String iconPath;
   final String title;
   final String subtitle;
-  final VoidCallback onSubmit;
+  final Function(BuildContext) onSubmit;
 
   const SuccessPageArgs({
     required this.iconPath,
@@ -26,7 +26,13 @@ class SuccessPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomButtonBar(onTap: args.onSubmit, buttonText: 'Continue'),
+      //TODO localisation
+      bottomNavigationBar: BottomButtonBar(
+        onTap: () {
+          args.onSubmit(context);
+        },
+        buttonText: 'Continue',
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,

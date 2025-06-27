@@ -2,9 +2,13 @@
     
     <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:label="gym_pro"
+        android:label="sub_me"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyDUeg__GwoicGwcRfzAABXOw_xU69lRtNA"/>
+        
         <activity
             android:name=".MainActivity"
             android:exported="true"

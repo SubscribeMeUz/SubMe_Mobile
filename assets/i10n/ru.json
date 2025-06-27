@@ -28,5 +28,7 @@
     "enter_code": "Введите код",
     "check_sms": "Проверьте СМС",
     "active_subscriptions": "Активные подписки",
-    "add_subscription": "Добавить подписку"
+    "add_subscription": "Добавить подписку",
+    "description": "Description",
+    "about": ""
 }

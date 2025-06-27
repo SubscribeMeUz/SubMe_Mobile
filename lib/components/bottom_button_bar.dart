@@ -9,6 +9,7 @@ class BottomButtonBar extends StatelessWidget {
   final String? buttonText;
   final EdgeInsets? padding;
   final VoidCallback? onTap;
+  final Color? backgroundColor;
 
   const BottomButtonBar({
     super.key,
@@ -17,6 +18,7 @@ class BottomButtonBar extends StatelessWidget {
     this.buttonText,
     this.padding,
     this.onTap,
+    this.backgroundColor,
   });
 
   @override
@@ -25,7 +27,7 @@ class BottomButtonBar extends StatelessWidget {
     final safePadding = MediaQuery.of(context).padding.bottom;
 
     return Container(
-      decoration: BoxDecoration(color: context.colors.backgroundColor),
+      decoration: BoxDecoration(color: backgroundColor ?? context.colors.backgroundColor),
       padding:
           padding ??
           EdgeInsets.only(top: 12, left: 16, right: 16, bottom: keyboard + safePadding + 32),

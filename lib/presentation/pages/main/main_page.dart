@@ -24,21 +24,22 @@ class MainPage extends StatelessWidget {
       body: navigationShell,
       extendBodyBehindAppBar: true,
 
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(top: 20.0),
-        child: SizedBox(
-          height: 60,
-          width: 60,
-          child: FittedBox(
-            child: FloatingActionButton(
-              onPressed: () {},
-              shape: CircleBorder(),
-              backgroundColor: context.colors.primaryColor,
-              child: SvgPicture.asset(Assets.svgQrScanIcon, height: 28, width: 28),
-            ),
-          ),
-        ),
-      ),
+      floatingActionButton:
+          isShowBottomNavBar
+              ? Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: SizedBox(
+                  height: 60,
+                  width: 60,
+                  child: FloatingActionButton(
+                    onPressed: () {},
+                    shape: CircleBorder(),
+                    backgroundColor: context.colors.primaryColor,
+                    child: SvgPicture.asset(Assets.svgQrScanIcon, height: 28, width: 28),
+                  ),
+                ),
+              )
+              : null,
 
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 

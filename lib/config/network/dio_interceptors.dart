@@ -2,6 +2,8 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:gym_pro/config/cache/cache_keys.dart';
+import 'package:gym_pro/config/cache/local_storage.dart';
 import 'package:gym_pro/config/constants/constants.dart';
 import 'package:gym_pro/config/network/api_exception.dart';
 import 'package:gym_pro/config/network/dio_connectivity_request_retrier.dart';
@@ -24,10 +26,10 @@ class CustomDioInterceptor extends Interceptor {
 
   @override
   Future onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
-    // var tokenIsExpired = JwtDecoder.isExpired(Caching.getToken());
-    // if (tokenIsExpired) {
-    //   await refreshAndSaveParallelRequests(options, handler);
-    // }
+    final accessToken = LocalStorage.getString(CacheKeys.accessToken);
+
+    options.headers['Authorization'] = 'Bearer $accessToken';
+
     return super.onRequest(options, handler);
   }
 
@@ -50,7 +52,7 @@ class CustomDioInterceptor extends Interceptor {
         return super.onError(err, handler);
       }
     }
-    if (err.response?.statusCode == 401) {
+    if (err.response?.statusCode == 401 || err.response?.statusCode == 403) {
       await refreshAndSaveParallelRequests(err.requestOptions, handler);
     } else {
       try {
@@ -122,31 +124,14 @@ class CustomDioInterceptor extends Interceptor {
 
       log("Refresh token request sent...");
 
-      // final response = await dio.post(
-      //   FlavorConfig.instance.baseUrl + Urls.refreshToken,
-      //   options: Options(
-      //     headers: {
-      //       "language": StorageRepository.getString(
-      //         AppKeys.LOCALE,
-      //         defValue: "ru",
-      //       ),
-      //     },
-      //   ),
-      //   queryParameters: {
-      //     "refresh_token": StorageRepository.getString(
-      //       AppKeys.REFRESHTOKEN,
-      //     ),
-      //   },
-      // );
-      // final data = response.data as Map<String, dynamic>;
-      // await StorageRepository.putString(
-      //   AppKeys.ACCESSTOKEN,
-      //   data['access_token'],
-      // );
-      // await StorageRepository.putString(
-      //   AppKeys.REFRESHTOKEN,
-      //   data['refresh_token'],
-      // );
+      final response = await dio.post(
+        Constants.refreshTokenApi,
+
+        data: {"refresh_token": LocalStorage.getString(CacheKeys.refreshToken)},
+      );
+      final data = response.data as Map<String, dynamic>;
+      await LocalStorage.putString(CacheKeys.accessToken, data['access_token']);
+      await LocalStorage.putString(CacheKeys.refreshToken, data['refresh_token']);
       return true;
     } catch (e) {
       //logout

@@ -1,17 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gym_pro/assets/assets.dart';
 import 'package:gym_pro/components/custom_button.dart';
 import 'package:gym_pro/components/favourited_item_widget.dart';
 import 'package:gym_pro/components/horizontal_list_widget.dart';
+import 'package:gym_pro/config/enums/bloc_status.dart';
 import 'package:gym_pro/config/localisation/app_localisation.dart';
 import 'package:gym_pro/config/localisation/localisation_keys.dart';
+import 'package:gym_pro/config/router/route_name.dart';
 import 'package:gym_pro/config/style/app_colors.dart';
 import 'package:gym_pro/config/style/app_text_style.dart';
 import 'package:gym_pro/domain/entity/favourite_entity.dart';
-import 'package:gym_pro/domain/entity/my_subscription_entity.dart';
+import 'package:gym_pro/presentation/bloc/subscriptions/subscription_bloc.dart';
 import 'package:gym_pro/presentation/pages/home/widgets/ad_widget.dart';
 import 'package:gym_pro/presentation/pages/home/widgets/my_subscription_widget.dart';
 
@@ -24,6 +28,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _searchController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<SubscriptionBloc>().add(GetMySubscriptionsEvent());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +51,7 @@ class _HomePageState extends State<HomePage> {
                 StretchMode.fadeTitle,
               ],
               title: Text(
-                'SubscribeMe',
+                'SubMe',
                 style: context.textStyle.sfProBold.copyWith(
                   fontSize: 28,
                   color: context.colors.whiteColor,
@@ -88,19 +98,23 @@ class _HomePageState extends State<HomePage> {
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: MySubscriptionWidget(
-                mySubscriptions: [
-                  MySubscriptionEntity(
-                    id: 0,
-                    name: 'Powerhouse Gym',
-                    logoUrl:
-                        'https://landmarksarchitects.com/wp-content/uploads/2024/04/Functionality-and-Space-Planning-03.04.2024.jpg',
-                    isPopular: true,
-                    period: '6 month',
-                    finishDate: DateTime(2025, 10, 15),
-                    leftDays: 90,
-                  ),
-                ],
+              child: BlocBuilder<SubscriptionBloc, SubscriptionState>(
+                builder: (context, state) {
+                  if (state.status == BlocStatus.loading) {
+                    return Center(
+                      child: CircularProgressIndicator(color: context.colors.primaryColor),
+                    );
+                  }
+                  return MySubscriptionWidget(
+                    mySubscriptions: state.myAbonements,
+                    onTapIndex: (index) {
+                      context.goNamed(
+                        RouteName.subscriptionDetailPage,
+                        extra: state.myAbonements[index].providerId,
+                      );
+                    },
+                  );
+                },
               ),
             ),
           ),
@@ -141,6 +155,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+
           const SliverGap(150),
         ],
       ),

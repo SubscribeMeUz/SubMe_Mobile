@@ -4,11 +4,15 @@ import 'package:go_router/go_router.dart';
 import 'package:gym_pro/components/success_page.dart';
 import 'package:gym_pro/config/di/app_injection.dart';
 import 'package:gym_pro/config/router/route_name.dart';
+import 'package:gym_pro/presentation/bloc/abonements/abonement_bloc.dart';
 import 'package:gym_pro/presentation/bloc/auth/auth_bloc.dart';
+import 'package:gym_pro/presentation/bloc/subscriptions/subscription_bloc.dart';
 import 'package:gym_pro/presentation/pages/add_subscription/subscription_catalog_page.dart';
 import 'package:gym_pro/presentation/pages/auth/confirm_number_page.dart';
 import 'package:gym_pro/presentation/pages/auth/enter_phone_page.dart';
 import 'package:gym_pro/presentation/pages/auth/welcome_page.dart';
+import 'package:gym_pro/presentation/pages/category/abonements_page.dart';
+import 'package:gym_pro/presentation/pages/category/subscription_detail_page.dart';
 import 'package:gym_pro/presentation/pages/home/home_page.dart';
 import 'package:gym_pro/presentation/pages/main/main_page.dart';
 import 'package:gym_pro/presentation/pages/profile/profile_page.dart';
@@ -17,8 +21,29 @@ import 'package:gym_pro/presentation/pages/splash_page.dart';
 final rootNavigatorKey = GlobalKey<NavigatorState>();
 
 class AppRouter {
+  static final subcriptionDetailPage = GoRoute(
+    path: '/subscription_detail_page',
+    name: RouteName.subscriptionDetailPage,
+    builder:
+        (context, state) => BlocProvider(
+          create: (_) => AbonementBloc(repository: getIt.get()),
+
+          child: SubscriptionDetailPage(providerId: state.extra as int),
+        ),
+    routes: [
+      GoRoute(
+        path: '/abonements_page',
+        name: RouteName.abonementsPage,
+        builder:
+            (context, state) => BlocProvider(
+              create: (_) => AbonementBloc(repository: getIt.get()),
+              child: AbonementsPage(providerId: state.extra as int),
+            ),
+      ),
+    ],
+  );
   static final router = GoRouter(
-    initialLocation: '/profile',
+    initialLocation: '/splash',
     navigatorKey: rootNavigatorKey,
     routes: [
       GoRoute(
@@ -79,25 +104,24 @@ class AppRouter {
               GoRoute(
                 path: '/home',
                 name: RouteName.homeRoute,
-                builder: (context, state) => HomePage(),
+                builder:
+                    (context, state) => BlocProvider(
+                      create: (_) => SubscriptionBloc(repository: getIt.get()),
+                      child: HomePage(),
+                    ),
+                routes: [subcriptionDetailPage],
               ),
             ],
           ),
           StatefulShellBranch(
-            routes: [
-              GoRoute(
-                path: '/home1',
-                // name: RouteName.homeRoute,
-                builder: (context, state) => HomePage(),
-              ),
-            ],
+            routes: [GoRoute(path: '/home1', builder: (context, state) => Container())],
           ),
           StatefulShellBranch(
             routes: [
               GoRoute(
                 path: '/home2',
                 // name: RouteName.homeRoute,
-                builder: (context, state) => HomePage(),
+                builder: (context, state) => Container(),
               ),
             ],
           ),

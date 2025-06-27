@@ -61,13 +61,13 @@ class _ConfirmationUiState extends State<ConfirmationUi> {
             textAlign: TextAlign.center,
             text: TextSpan(
               style: context.textStyle.sfProMedium.copyWith(
-                color: context.colors.disabledColor.withAlpha(70),
+                color: context.colors.ebebf5Color.withAlpha(90),
                 fontSize: 17,
               ),
               children: [
                 TextSpan(text: context.tr(LocalisationKeys.verif_code_sent_to)),
                 TextSpan(
-                  text: ' \n+998 ${widget.phoneNumber}. ',
+                  text: ' \n${widget.phoneNumber}. ',
                   style: context.textStyle.sfProMedium.copyWith(
                     color: context.colors.whiteColor,
                     fontSize: 17,

@@ -23,4 +23,10 @@ class Assets {
   static const svgAgreement = '$_svgUrl/agreement.svg';
   static const svgPrivacy = '$_svgUrl/privacy.svg';
   static const svgQuestion = '$_svgUrl/question.svg';
+  static const svgShare = '$_svgUrl/share.svg';
+  static const svgChat = '$_svgUrl/chat.svg';
+  static const svgLocation = '$_svgUrl/location.svg';
+  static const svgNavigation = '$_svgUrl/navigation.svg';
+  static const svgRate = '$_svgUrl/rate.svg';
+  static const svgTraining = '$_svgUrl/training.svg';
 }
