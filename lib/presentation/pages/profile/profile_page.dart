@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import 'package:gym_pro/assets/assets.dart';
@@ -8,6 +9,7 @@ import 'package:gym_pro/config/localisation/app_localisation.dart';
 import 'package:gym_pro/config/localisation/localisation_keys.dart';
 import 'package:gym_pro/config/style/app_colors.dart';
 import 'package:gym_pro/config/style/app_text_style.dart';
+import 'package:gym_pro/presentation/bloc/user/user_bloc.dart';
 import 'package:gym_pro/presentation/pages/home/widgets/ad_widget.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -19,53 +21,77 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   @override
+  void initState() {
+    super.initState();
+    context.read<UserBloc>().add(GetUserEvent());
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
         actions: [
-          Text(
-            context.tr(LocalisationKeys.edit),
-            style: context.textStyle.sfProRegular.copyWith(
-              color: context.colors.primaryColor,
-              fontSize: 17,
-            ),
-          ),
+          // Text(
+          //   context.tr(LocalisationKeys.edit),
+          //   style: context.textStyle.sfProRegular.copyWith(
+          //     color: context.colors.primaryColor,
+          //     fontSize: 17,
+          //   ),
+          // ),
           const Gap(16),
         ],
       ),
       body: ListView(
         children: [
           const Gap(48),
-          Container(
-            width: 80,
-            height: 80,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Color(0xff242629),
-              image: DecorationImage(image: CachedNetworkImageProvider('url')),
-            ),
-          ),
-          const Gap(16),
-          Center(
-            child: Text(
-              'My Name',
-              style: context.textStyle.sfProSemiBold.copyWith(
-                color: context.colors.whiteColor,
-                fontSize: 20,
-                height: 25 / 20,
-              ),
-            ),
-          ),
-          const Gap(4),
-          Center(
-            child: Text(
-              '+998 (99) 090-09-98',
-              style: context.textStyle.sfProRegular.copyWith(
-                color: context.colors.ebebf5Color,
-                fontSize: 15,
-                height: 18 / 14,
-              ),
-            ),
+          BlocBuilder<UserBloc, UserState>(
+            builder: (context, state) {
+              return Column(
+                children: [
+                  Container(
+                    width: 80,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xff242629),
+                      // image: DecorationImage(image: CachedNetworkImageProvider('url')),
+                    ),
+                    child: Center(
+                      child: Text(
+                        state.userEntity?.fullName?.substring(0, 1) ?? '',
+                        style: context.textStyle.sfProBold.copyWith(
+                          fontSize: 20,
+                          color: context.colors.whiteColor,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const Gap(16),
+                  Center(
+                    child: Text(
+                      state.userEntity?.fullName ?? '',
+                      style: context.textStyle.sfProSemiBold.copyWith(
+                        color: context.colors.whiteColor,
+                        fontSize: 20,
+                        height: 25 / 20,
+                      ),
+                    ),
+                  ),
+                  const Gap(4),
+                  Center(
+                    child: Text(
+                      state.userEntity?.phone ?? '',
+                      // '+998 (99) 090-09-98',
+                      style: context.textStyle.sfProRegular.copyWith(
+                        color: context.colors.ebebf5Color,
+                        fontSize: 15,
+                        height: 18 / 14,
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
           const Gap(32),
           Padding(

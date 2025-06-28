@@ -7,11 +7,14 @@ import 'package:gym_pro/config/router/route_name.dart';
 import 'package:gym_pro/presentation/bloc/abonements/abonement_bloc.dart';
 import 'package:gym_pro/presentation/bloc/auth/auth_bloc.dart';
 import 'package:gym_pro/presentation/bloc/subscriptions/subscription_bloc.dart';
+import 'package:gym_pro/presentation/bloc/user/user_bloc.dart';
 import 'package:gym_pro/presentation/pages/add_subscription/subscription_catalog_page.dart';
 import 'package:gym_pro/presentation/pages/auth/confirm_number_page.dart';
 import 'package:gym_pro/presentation/pages/auth/enter_phone_page.dart';
 import 'package:gym_pro/presentation/pages/auth/welcome_page.dart';
 import 'package:gym_pro/presentation/pages/category/abonements_page.dart';
+import 'package:gym_pro/presentation/pages/category/my_abonements_page.dart';
+import 'package:gym_pro/presentation/pages/category/provider_list_page.dart';
 import 'package:gym_pro/presentation/pages/category/subscription_detail_page.dart';
 import 'package:gym_pro/presentation/pages/home/home_page.dart';
 import 'package:gym_pro/presentation/pages/main/main_page.dart';
@@ -22,7 +25,7 @@ final rootNavigatorKey = GlobalKey<NavigatorState>();
 
 class AppRouter {
   static final subcriptionDetailPage = GoRoute(
-    path: '/subscription_detail_page',
+    path: 'subscription_detail_page',
     name: RouteName.subscriptionDetailPage,
     builder:
         (context, state) => BlocProvider(
@@ -32,11 +35,14 @@ class AppRouter {
         ),
     routes: [
       GoRoute(
-        path: '/abonements_page',
+        path: 'abonements_page',
         name: RouteName.abonementsPage,
         builder:
-            (context, state) => BlocProvider(
-              create: (_) => AbonementBloc(repository: getIt.get()),
+            (context, state) => MultiBlocProvider(
+              providers: [
+                BlocProvider(create: (_) => SubscriptionBloc(repository: getIt.get())),
+                BlocProvider(create: (_) => AbonementBloc(repository: getIt.get())),
+              ],
               child: AbonementsPage(providerId: state.extra as int),
             ),
       ),
@@ -109,7 +115,28 @@ class AppRouter {
                       create: (_) => SubscriptionBloc(repository: getIt.get()),
                       child: HomePage(),
                     ),
-                routes: [subcriptionDetailPage],
+                routes: [
+                  subcriptionDetailPage,
+                  GoRoute(
+                    path: '/catalog',
+                    name: RouteName.providersRoute,
+                    builder:
+                        (context, state) => BlocProvider(
+                          create: (_) => SubscriptionBloc(repository: getIt.get()),
+                          child: ProviderListPage(),
+                        ),
+                  ),
+                  GoRoute(
+                    path: '/my_subscriptions',
+                    name: RouteName.mySubscriptionsRoute,
+                    builder:
+                        (context, state) => BlocProvider(
+                          create: (_) => SubscriptionBloc(repository: getIt.get()),
+                          child: MySubscriptionsPage(),
+                        ),
+                    // routes: [subcriptionDetailPage],
+                  ),
+                ],
               ),
             ],
           ),
@@ -130,7 +157,11 @@ class AppRouter {
               GoRoute(
                 path: '/profile',
                 name: RouteName.profileRoute,
-                builder: (context, state) => ProfilePage(),
+                builder:
+                    (context, state) => BlocProvider(
+                      create: (_) => UserBloc(repository: getIt.get()),
+                      child: ProfilePage(),
+                    ),
               ),
             ],
           ),

@@ -59,7 +59,12 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             actions: [
-              SvgPicture.asset(Assets.svgAddIcon, height: 24, width: 24),
+              GestureDetector(
+                onTap: () {
+                  context.goNamed(RouteName.providersRoute);
+                },
+                child: SvgPicture.asset(Assets.svgAddIcon, height: 24, width: 24),
+              ),
               const Gap(16),
               SvgPicture.asset(Assets.svgNotificationIcon, height: 24, width: 24),
               const Gap(12),
@@ -119,43 +124,52 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           const SliverGap(12),
+
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             sliver: SliverToBoxAdapter(
-              child: CustomButton(
-                onTap: () {},
-                buttonText: context.tr(LocalisationKeys.other_subscriptions),
-                buttonType: ButtonType.secondary,
+              child: BlocBuilder<SubscriptionBloc, SubscriptionState>(
+                builder: (context, state) {
+                  if (state.myAbonements.isEmpty) {
+                    return SizedBox.shrink();
+                  }
+                  return CustomButton(
+                    onTap: () {
+                      context.goNamed(RouteName.mySubscriptionsRoute);
+                    },
+                    buttonText: context.tr(LocalisationKeys.my_subscriptions),
+                    buttonType: ButtonType.secondary,
+                  );
+                },
               ),
             ),
           ),
           const SliverGap(12),
 
-          SliverToBoxAdapter(
-            child: HorizontalListWidget(
-              title: context.tr(LocalisationKeys.favorited_trainer),
-              listChild: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                itemCount: 7,
-                shrinkWrap: true,
-                physics: const BouncingScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return FavouritedItemWidget(
-                    entity: FavouriteEntity(
-                      imagePath:
-                          'https://landmarksarchitects.com/wp-content/uploads/2024/04/Functionality-and-Space-Planning-03.04.2024.jpg',
-                      title: 'Abdulaziz K.',
-                      subtitle: 'Experienced trainer',
-                    ),
-                    onTap: () {},
-                  );
-                },
-                separatorBuilder: (context, index) => const Gap(12),
-              ),
-            ),
-          ),
-
+          // SliverToBoxAdapter(
+          //   child: HorizontalListWidget(
+          //     title: context.tr(LocalisationKeys.favorited_trainer),
+          //     listChild: ListView.separated(
+          //       scrollDirection: Axis.horizontal,
+          //       padding: const EdgeInsets.symmetric(horizontal: 16),
+          //       itemCount: 7,
+          //       shrinkWrap: true,
+          //       physics: const BouncingScrollPhysics(),
+          //       itemBuilder: (context, index) {
+          //         return FavouritedItemWidget(
+          //           entity: FavouriteEntity(
+          //             imagePath:
+          //                 'https://landmarksarchitects.com/wp-content/uploads/2024/04/Functionality-and-Space-Planning-03.04.2024.jpg',
+          //             title: 'Abdulaziz K.',
+          //             subtitle: 'Experienced trainer',
+          //           ),
+          //           onTap: () {},
+          //         );
+          //       },
+          //       separatorBuilder: (context, index) => const Gap(12),
+          //     ),
+          //   ),
+          // ),
           const SliverGap(150),
         ],
       ),

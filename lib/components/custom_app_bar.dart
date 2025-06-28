@@ -9,12 +9,14 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final double leadingWidth;
   final Widget? leading;
   final List<Widget>? actions;
+  final Color? backgroundColor;
   const CustomAppBar({
     super.key,
     this.titleText,
     this.leadingWidth = 40,
     this.leading,
     this.actions,
+    this.backgroundColor,
   });
 
   @override
@@ -29,7 +31,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: context.colors.backgroundColor,
+      backgroundColor: widget.backgroundColor ?? context.colors.backgroundColor,
       title:
           widget.titleText != null
               ? Text(

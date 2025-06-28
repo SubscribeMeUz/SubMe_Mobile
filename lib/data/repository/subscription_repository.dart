@@ -1,6 +1,7 @@
 import 'package:gym_pro/data/remote_source/subscription_remote_source.dart';
 import 'package:gym_pro/domain/entity/my_subscription_entity.dart';
 import 'package:gym_pro/domain/entity/provider_abonements_entity.dart';
+import 'package:gym_pro/domain/entity/provider_entity.dart';
 import 'package:gym_pro/domain/entity/subcription_entity.dart';
 import 'package:gym_pro/domain/repository/subscription_repository.dart';
 
@@ -12,10 +13,10 @@ class SubscriptionRepositoryImpl extends SubscriptionRepository {
   SubscriptionRepositoryImpl({required this.remoteSource});
 
   @override
-  Future<(List<SubscriptionEntity>, TotalListCount)> getAll() async {
-    final res = await remoteSource.getSubscriptionList();
+  Future<List<ProviderEntity>> getAllProvider() async {
+    final providerList = await remoteSource.getProviderList();
 
-    return res.toListEntity;
+    return providerList.map((e) => e.toEntity).toList();
   }
 
   @override
@@ -37,5 +38,10 @@ class SubscriptionRepositoryImpl extends SubscriptionRepository {
     final res = await remoteSource.getTariffOfProviderId(providerId);
 
     return res.toEntity;
+  }
+
+  @override
+  Future<void> buySubscription(int abonementId) async {
+    await remoteSource.purchaseAbonement(abonementId);
   }
 }

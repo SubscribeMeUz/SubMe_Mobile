@@ -2,9 +2,9 @@
     
     <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:label="sub_me"
+        android:label="SubMe"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/app_logo">
         
         <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyDUeg__GwoicGwcRfzAABXOw_xU69lRtNA"/>

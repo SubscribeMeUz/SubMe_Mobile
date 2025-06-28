@@ -6,4 +6,6 @@ class CacheKeys {
   static const refreshToken = "REFRESH_TOKEN";
   static const phoneNumber = "PHONE_NUMBER";
   static const userId = "USER_ID";
+  static const username = "USERNAME";
+  static const fullname = "FULLNAME";
 }

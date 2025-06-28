@@ -15,7 +15,7 @@
     "and": "и",
     "user_agreement": "Пользовательское соглашение",
     "privacy_policy": "Политика конфиденциальности",
-    "other_subscription": "Другие Подписки",
+    "my_subscription": "Мои Подписки",
     "favorited_trainer": "Любимые тренеры недели",
     "home_tab": "Главная",
     "assistant_tab": "Помощник",
@@ -30,5 +30,8 @@
     "active_subscriptions": "Активные подписки",
     "add_subscription": "Добавить подписку",
     "description": "Description",
-    "about": ""
+    "about": "",
+    "buy_success": "Запрос на подписку успешно получен",
+    "buy_desc_success": "Ваш запрос будет рассмотрен администратором. Обновите главный экран через 5 минут",
+    "go_to_home": "На главную"
 }

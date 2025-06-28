@@ -16,14 +16,17 @@ class ProviderAbonementsModel {
   });
 
   factory ProviderAbonementsModel.fromJson(Map<String, dynamic> json) {
+    late final List<dynamic> tabs;
+    if (json.containsKey('tabs')) {
+      tabs = json['tabs'] as List;
+    } else {
+      tabs = [];
+    }
     return ProviderAbonementsModel(
       id: json['id'],
       title: json['title'],
       logo: json['logo'],
-      tabs:
-          json.containsKey('tabs')
-              ? (json['tabs'] as List).map((e) => TabOption.fromJson(e)).toList()
-              : null,
+      tabs: tabs.isEmpty ? null : tabs.map((e) => TabOption.fromJson(e)).toList(),
       plansByTab: (json['plansByTab'] as Map<String, dynamic>).map(
         (key, value) => MapEntry(key, (value as List).map((e) => PlanBlock.fromJson(e)).toList()),
       ),

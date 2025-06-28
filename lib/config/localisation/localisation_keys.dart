@@ -29,7 +29,10 @@ class LocalisationKeys {
   static final String edit = 'edit';
   static final String code_for_verification = 'code_for_verification';
   static final String favorited_trainer = 'favorited_trainer';
-  static final String other_subscriptions = 'other_subscription';
+  static final String my_subscriptions = 'my_subscription';
   static final String active_subscriptions = 'active_subscriptions';
   static final String add_subscription = 'add_subscription';
+  static final String buy_success = 'buy_success';
+  static final String buy_desc_success = 'buy_desc_success';
+  static final String goToHome = 'go_to_home';
 }
