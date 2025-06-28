@@ -8,4 +8,5 @@ abstract class SubscriptionRepository {
   Future<List<MySubscriptionEntity>> getMySubscriptions();
   Future<SubscriptionEntity> getProviderDetail(int providerId);
   Future<ProviderAbonementsEntity> getProviderTariffs(int providerId);
+  Future<void> buySubscription(int abonementId);
 }

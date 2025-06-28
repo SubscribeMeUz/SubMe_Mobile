@@ -36,8 +36,8 @@ class ApiException extends DioException {
       errMessage:
           response == null
               ? null
-              : response.containsKey('error_message')
-              ? response['error_message']
+              : response.containsKey('detail')
+              ? response['detail']
               : null,
       title:
           response == null

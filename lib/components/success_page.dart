@@ -9,6 +9,7 @@ class SuccessPageArgs {
   final String iconPath;
   final String title;
   final String subtitle;
+  final String? buttonText;
   final Function(BuildContext) onSubmit;
 
   const SuccessPageArgs({
@@ -16,6 +17,7 @@ class SuccessPageArgs {
     required this.title,
     required this.subtitle,
     required this.onSubmit,
+    this.buttonText,
   });
 }
 
@@ -31,7 +33,7 @@ class SuccessPage extends StatelessWidget {
         onTap: () {
           args.onSubmit(context);
         },
-        buttonText: 'Continue',
+        buttonText: args.buttonText ?? 'Continue',
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

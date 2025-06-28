@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gym_pro/components/custom_button.dart';
 import 'package:gym_pro/config/localisation/app_localisation.dart';
 import 'package:gym_pro/config/localisation/localisation_keys.dart';
+import 'package:gym_pro/config/router/route_name.dart';
 import 'package:gym_pro/config/style/app_colors.dart';
 import 'package:gym_pro/config/style/app_text_style.dart';
 import 'package:gym_pro/domain/entity/my_subscription_entity.dart';
@@ -30,7 +32,9 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
       child:
           widget.mySubscriptions.isEmpty
               ? CustomButton(
-                onTap: () {},
+                onTap: () {
+                  context.goNamed(RouteName.providersRoute);
+                },
                 buttonText: context.tr(LocalisationKeys.add_subscription),
               )
               : Column(

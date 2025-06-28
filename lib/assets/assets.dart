@@ -30,4 +30,5 @@ class Assets {
   static const svgRate = '$_svgUrl/rate.svg';
   static const svgTraining = '$_svgUrl/training.svg';
   static const svgChevronRight = '$_svgUrl/chevron_right.svg';
+  static const svgSuccessTick = '$_svgUrl/success_tick.svg';
 }

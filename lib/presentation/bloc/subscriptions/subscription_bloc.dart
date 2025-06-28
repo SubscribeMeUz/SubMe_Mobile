@@ -16,6 +16,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   SubscriptionBloc({required this.repository}) : super(SubscriptionState()) {
     on<GetMySubscriptionsEvent>(_getMySubscription);
     on<GetSubscriptionEvent>(_getSubscriptions);
+    on<PurchaseSubscriptionEvent>(_purchaseSubscriptions);
   }
 
   FutureOr<void> _getMySubscription(
@@ -47,6 +48,21 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       emit(state.copyWith(status: BlocStatus.success, subscriptions: data));
     } on ApiException catch (e) {
       emit(state.copyWith(status: BlocStatus.failure, errorMessage: e.errMessage));
+    } catch (e) {
+      emit(state.copyWith(status: BlocStatus.failure, errorMessage: '$e'));
+    }
+  }
+
+  FutureOr<void> _purchaseSubscriptions(
+    PurchaseSubscriptionEvent event,
+    Emitter<SubscriptionState> emit,
+  ) async {
+    try {
+      emit(state.copyWith(status: BlocStatus.loading));
+
+      await repository.buySubscription(event.abonementId);
+
+      emit(state.copyWith(status: BlocStatus.success));
     } catch (e) {
       emit(state.copyWith(status: BlocStatus.failure, errorMessage: '$e'));
     }

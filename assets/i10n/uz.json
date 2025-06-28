@@ -30,5 +30,8 @@
     "check_sms": "Smsni tekshiring",
     "active_subscriptions": "Aktiv obunalar",
     "add_subscription": "Obuna qo'shish",
-    "description": ""
+    "description": "",
+    "buy_success": "Obuna so'rovi muvaffaqiyatli qabul qilindi",
+    "buy_desc_success": "So'rovingiz administrator tomonidan ko'rib chiqiladi. 5 daqiqadan so'ng bosh ekranni yangilang",
+    "go_to_home": "Bosh sahifaga o'tish"
 }

@@ -7,6 +7,7 @@ import 'package:gym_pro/config/router/route_name.dart';
 import 'package:gym_pro/presentation/bloc/abonements/abonement_bloc.dart';
 import 'package:gym_pro/presentation/bloc/auth/auth_bloc.dart';
 import 'package:gym_pro/presentation/bloc/subscriptions/subscription_bloc.dart';
+import 'package:gym_pro/presentation/bloc/user/user_bloc.dart';
 import 'package:gym_pro/presentation/pages/add_subscription/subscription_catalog_page.dart';
 import 'package:gym_pro/presentation/pages/auth/confirm_number_page.dart';
 import 'package:gym_pro/presentation/pages/auth/enter_phone_page.dart';
@@ -37,8 +38,11 @@ class AppRouter {
         path: 'abonements_page',
         name: RouteName.abonementsPage,
         builder:
-            (context, state) => BlocProvider(
-              create: (_) => AbonementBloc(repository: getIt.get()),
+            (context, state) => MultiBlocProvider(
+              providers: [
+                BlocProvider(create: (_) => SubscriptionBloc(repository: getIt.get())),
+                BlocProvider(create: (_) => AbonementBloc(repository: getIt.get())),
+              ],
               child: AbonementsPage(providerId: state.extra as int),
             ),
       ),
@@ -153,7 +157,11 @@ class AppRouter {
               GoRoute(
                 path: '/profile',
                 name: RouteName.profileRoute,
-                builder: (context, state) => ProfilePage(),
+                builder:
+                    (context, state) => BlocProvider(
+                      create: (_) => UserBloc(repository: getIt.get()),
+                      child: ProfilePage(),
+                    ),
               ),
             ],
           ),

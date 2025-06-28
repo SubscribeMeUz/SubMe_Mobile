@@ -32,4 +32,7 @@ class LocalisationKeys {
   static final String my_subscriptions = 'my_subscription';
   static final String active_subscriptions = 'active_subscriptions';
   static final String add_subscription = 'add_subscription';
+  static final String buy_success = 'buy_success';
+  static final String buy_desc_success = 'buy_desc_success';
+  static final String goToHome = 'go_to_home';
 }
