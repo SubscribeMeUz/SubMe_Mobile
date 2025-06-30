@@ -1,4 +1,4 @@
-package com.example.gym_pro
+package uz.me.subscribe
 
 import io.flutter.embedding.android.FlutterActivity
 

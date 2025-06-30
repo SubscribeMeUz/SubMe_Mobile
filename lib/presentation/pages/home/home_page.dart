@@ -146,30 +146,30 @@ class _HomePageState extends State<HomePage> {
           ),
           const SliverGap(12),
 
-          // SliverToBoxAdapter(
-          //   child: HorizontalListWidget(
-          //     title: context.tr(LocalisationKeys.favorited_trainer),
-          //     listChild: ListView.separated(
-          //       scrollDirection: Axis.horizontal,
-          //       padding: const EdgeInsets.symmetric(horizontal: 16),
-          //       itemCount: 7,
-          //       shrinkWrap: true,
-          //       physics: const BouncingScrollPhysics(),
-          //       itemBuilder: (context, index) {
-          //         return FavouritedItemWidget(
-          //           entity: FavouriteEntity(
-          //             imagePath:
-          //                 'https://landmarksarchitects.com/wp-content/uploads/2024/04/Functionality-and-Space-Planning-03.04.2024.jpg',
-          //             title: 'Abdulaziz K.',
-          //             subtitle: 'Experienced trainer',
-          //           ),
-          //           onTap: () {},
-          //         );
-          //       },
-          //       separatorBuilder: (context, index) => const Gap(12),
-          //     ),
-          //   ),
-          // ),
+          SliverToBoxAdapter(
+            child: HorizontalListWidget(
+              title: context.tr(LocalisationKeys.favorited_trainer),
+              listChild: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                itemCount: 7,
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return FavouritedItemWidget(
+                    entity: FavouriteEntity(
+                      imagePath:
+                          'https://landmarksarchitects.com/wp-content/uploads/2024/04/Functionality-and-Space-Planning-03.04.2024.jpg',
+                      title: 'Abdulaziz K.',
+                      subtitle: 'Experienced trainer',
+                    ),
+                    onTap: () {},
+                  );
+                },
+                separatorBuilder: (context, index) => const Gap(12),
+              ),
+            ),
+          ),
           const SliverGap(150),
         ],
       ),
