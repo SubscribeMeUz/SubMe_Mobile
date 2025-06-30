@@ -36,19 +36,14 @@ class DioSettings {
     _dio?.interceptors.add(chuck.dioInterceptor);
   }
 
-  Dio _createInterceptorConfiguredClient({
-    required bool isGetMasterAccount,
-    required String? baseUrl,
-  }) {
-    if (_dio != null && !isGetMasterAccount) {
+  Dio _createInterceptorConfiguredClient({required String? baseUrl}) {
+    if (_dio != null) {
       _dio?.options.baseUrl = Constants.baseUrl;
-      customInterceptor.isMasterAccount = false;
       return _dio!;
     }
     _dio = Dio(_dioBaseOptions);
     customInterceptor = CustomDioInterceptor(
       dio: _dio!,
-      isMasterAccount: isGetMasterAccount,
       dioConnectivityRequestRetrier: DioConnectivityRequestRetrier(dio: _dio!),
     );
 
@@ -58,7 +53,7 @@ class DioSettings {
 
     _dio!.interceptors.addAll([
       customInterceptor,
-      chuck.dioInterceptor,
+      if (kDebugMode) chuck.dioInterceptor,
       if (kDebugMode) ...[
         LogInterceptor(request: true, responseBody: true, error: true, requestBody: true),
       ],
@@ -72,15 +67,11 @@ class DioSettings {
     data,
     Map<String, dynamic>? queryParameters,
     Options? options,
-    bool isMasterAccount = false,
     String? customBaseUrl,
   }) async {
     try {
       late Response<dynamic> response;
-      var dio = _createInterceptorConfiguredClient(
-        isGetMasterAccount: isMasterAccount,
-        baseUrl: customBaseUrl,
-      );
+      var dio = _createInterceptorConfiguredClient(baseUrl: customBaseUrl);
       switch (methodType) {
         case RESTMethodTypes.GET:
           response = await dio.get(

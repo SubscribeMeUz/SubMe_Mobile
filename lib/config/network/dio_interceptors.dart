@@ -14,13 +14,8 @@ List<Map<dynamic, dynamic>> failedRequests = [];
 
 class CustomDioInterceptor extends Interceptor {
   final DioConnectivityRequestRetrier dioConnectivityRequestRetrier;
-  bool isMasterAccount;
 
-  CustomDioInterceptor({
-    required this.dio,
-    required this.dioConnectivityRequestRetrier,
-    required this.isMasterAccount,
-  });
+  CustomDioInterceptor({required this.dio, required this.dioConnectivityRequestRetrier});
 
   Dio dio;
 
@@ -120,8 +115,6 @@ class CustomDioInterceptor extends Interceptor {
       );
     }
     try {
-      //TODO refresh token logic
-
       log("Refresh token request sent...");
 
       final response = await dio.post(

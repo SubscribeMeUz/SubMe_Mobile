@@ -1,16 +1,8 @@
-# gym_pro
+# sub_me
 
-A new Flutter project.
+Turli xil xizmatlarga obuna bo'lish va biznes egalari uchun obunalar nazorat va analitikalariga mo'ljallangan loyiha 
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Mobil ilova Flutter orqali yozilgan bo'lib, android va iosni qo'llab quvvatlaydi.
+Mobil ilova kodida kerakli key va url lar olib tashlangan, uning o'rniga o'zingizning key va urllaringizni qo'ying
