@@ -88,6 +88,12 @@ class _SubscriptionCatalogPageState extends State<SubscriptionCatalogPage> {
                     necessaryTools: null,
                     id: 0,
                     name: 'Powerhouse',
+                    images: [
+                      'https://landmarksarchitects.com/wp-content/uploads/2024/04/Functionality-and-Space-Planning-03.04.2024.jpg',
+                      'https://landmarksarchitects.com/wp-content/uploads/2024/04/Functionality-and-Space-Planning-03.04.2024.jpg',
+                    ],
+                    description: '',
+                    address: null,
                   ),
                   onChoose: (id) {
                     //TODO choose subscriptions

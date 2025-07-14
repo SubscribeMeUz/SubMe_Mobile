@@ -63,7 +63,7 @@ class _ProviderListPageState extends State<ProviderListPage> {
                         return ProviderWidget(
                           providerEntity: provider,
                           onTap: () {
-                            context.goNamed(RouteName.subscriptionDetailPage, extra: provider.id);
+                            context.pushNamed(RouteName.providerDetailPage, extra: provider.id);
                           },
                         );
                       },

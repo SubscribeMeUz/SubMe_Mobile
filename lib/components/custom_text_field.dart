@@ -4,7 +4,7 @@ import 'package:gym_pro/config/style/app_colors.dart';
 import 'package:gym_pro/config/style/app_text_style.dart';
 
 class CustomTextField extends StatefulWidget {
-  final String labelText;
+  final String? hintText;
   final bool obscureText;
   final bool isFocused;
   final List<TextInputFormatter>? inputFormatters;
@@ -13,7 +13,6 @@ class CustomTextField extends StatefulWidget {
   final TextEditingController controller;
 
   const CustomTextField({
-    required this.labelText,
     required this.controller,
     this.inputType = TextInputType.name,
     this.obscureText = false,
@@ -21,6 +20,7 @@ class CustomTextField extends StatefulWidget {
     super.key,
     this.inputFormatters,
     this.prefixText,
+    this.hintText,
   });
 
   @override
@@ -38,8 +38,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
       inputFormatters: widget.inputFormatters,
       decoration: InputDecoration(
         prefixText: widget.prefixText,
-        hintText: widget.labelText,
-        labelStyle: context.textStyle.sfProRegular.copyWith(fontSize: 16, color: Color(0xFF888888)),
+        hintText: widget.hintText,
+
+        isDense: true,
         hintStyle: context.textStyle.sfProRegular.copyWith(
           fontSize: 17,
           color: context.colors.disabledColor.withAlpha(70),
@@ -48,8 +49,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
           fontSize: 17,
           color: context.colors.whiteColor,
         ),
+        floatingLabelBehavior: FloatingLabelBehavior.always,
         filled: true,
         fillColor: context.colors.cardDark,
+        border: OutlineInputBorder(),
         enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 17),

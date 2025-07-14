@@ -3,6 +3,7 @@ class Assets {
   //png
   static const welcomePng = '$_pngUrl/welcome.png';
   static const pngLogo = '$_pngUrl/logo.png';
+  static const coverLogo = '$_pngUrl/cover.png';
   //svg
 
   static const _svgUrl = 'assets/svg';
@@ -31,4 +32,5 @@ class Assets {
   static const svgTraining = '$_svgUrl/training.svg';
   static const svgChevronRight = '$_svgUrl/chevron_right.svg';
   static const svgSuccessTick = '$_svgUrl/success_tick.svg';
+  static const svgTelegram = '$_svgUrl/telegram.svg';
 }

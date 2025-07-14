@@ -44,4 +44,9 @@ class SubscriptionRepositoryImpl extends SubscriptionRepository {
   Future<void> buySubscription(int abonementId) async {
     await remoteSource.purchaseAbonement(abonementId);
   }
+
+  @override
+  Future<void> visitAbonement(int abonementId, int providerId) async {
+    await remoteSource.visitAbonement(abonementId, providerId);
+  }
 }

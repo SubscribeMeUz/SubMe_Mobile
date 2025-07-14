@@ -5,7 +5,8 @@ class MySubscriptionEntity {
   final String logoUrl;
   final bool isPopular;
   final String period;
-  final DateTime finishDate;
+  final DateTime? finishDate;
+  final DateTime? startDate;
   final int leftDays;
   final int totalCount;
   final int leftCount;
@@ -21,5 +22,6 @@ class MySubscriptionEntity {
     required this.leftDays,
     required this.totalCount,
     required this.leftCount,
+    required this.startDate,
   });
 }

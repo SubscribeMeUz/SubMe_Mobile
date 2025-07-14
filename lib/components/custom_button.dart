@@ -8,11 +8,13 @@ class CustomButton extends StatelessWidget {
   final VoidCallback? onTap;
   final String buttonText;
   final ButtonType buttonType;
+  final bool isLoading;
   const CustomButton({
     super.key,
     required this.onTap,
     required this.buttonText,
     this.buttonType = ButtonType.primary,
+    this.isLoading = false,
   });
 
   @override
@@ -27,7 +29,7 @@ class CustomButton extends StatelessWidget {
       textColor = context.colors.primaryColor;
     }
     return GestureDetector(
-      onTap: onTap,
+      onTap: isLoading == false ? onTap : null,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 13),
         width: double.infinity,
@@ -36,10 +38,17 @@ class CustomButton extends StatelessWidget {
           color: onTap != null ? backgroundColor : context.colors.disabledButtonColor,
         ),
         child: Center(
-          child: Text(
-            buttonText,
-            style: context.textStyle.sfProMedium.copyWith(fontSize: 17, color: textColor),
-          ),
+          child:
+              isLoading
+                  ? SizedBox(
+                    height: 22,
+                    width: 22,
+                    child: CircularProgressIndicator(color: textColor),
+                  )
+                  : Text(
+                    buttonText,
+                    style: context.textStyle.sfProMedium.copyWith(fontSize: 17, color: textColor),
+                  ),
         ),
       ),
     );

@@ -61,7 +61,7 @@ class _AbonementsPageState extends State<AbonementsPage> with TickerProviderStat
               },
             ),
           );
-        } else if (state.status == BlocStatus.failure) {
+        } else if (state.status == BlocStatus.error) {
           FrequentMethods.showSnackBar(context, state.errorMessage ?? '');
         }
       },
@@ -74,7 +74,7 @@ class _AbonementsPageState extends State<AbonementsPage> with TickerProviderStat
               vsync: this,
             );
             setState(() {});
-          } else if (state.status == BlocStatus.failure) {
+          } else if (state.status == BlocStatus.error) {
             FrequentMethods.showSnackBar(context, state.errorMessage ?? '');
           }
         },

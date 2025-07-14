@@ -15,7 +15,7 @@ class GeoLocationWidget extends StatefulWidget {
 }
 
 class _GeoLocationWidgetState extends State<GeoLocationWidget> {
-  late final GoogleMapController _controller;
+  // late final GoogleMapController _controller;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -42,9 +42,9 @@ class _GeoLocationWidgetState extends State<GeoLocationWidget> {
               child: GoogleMap(
                 zoomControlsEnabled: false,
                 initialCameraPosition: CameraPosition(target: widget.latLng, zoom: 13),
-                onMapCreated: (GoogleMapController controller) {
-                  _controller = controller;
-                },
+                // onMapCreated: (GoogleMapController controller) {
+                //   _controller = controller;
+                // },
                 markers: {
                   Marker(
                     alpha: 1,
