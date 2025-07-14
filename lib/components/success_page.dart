@@ -10,6 +10,7 @@ class SuccessPageArgs {
   final String title;
   final String subtitle;
   final String? buttonText;
+  final bool noIconPadding;
   final Function(BuildContext) onSubmit;
 
   const SuccessPageArgs({
@@ -18,6 +19,7 @@ class SuccessPageArgs {
     required this.subtitle,
     required this.onSubmit,
     this.buttonText,
+    this.noIconPadding = false,
   });
 }
 
@@ -47,7 +49,11 @@ class SuccessPage extends StatelessWidget {
               shape: BoxShape.circle,
               color: context.colors.primaryColor.withAlpha(20),
             ),
-            child: SvgPicture.asset(args.iconPath, height: 68, width: 68),
+            child: SvgPicture.asset(
+              args.iconPath,
+              height: args.noIconPadding ? 120 : 68,
+              width: args.noIconPadding ? 120 : 68,
+            ),
           ),
           const Gap(32),
           Padding(

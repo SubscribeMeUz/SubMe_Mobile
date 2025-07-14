@@ -14,6 +14,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
   UserBloc({required this.repository}) : super(UserState()) {
     on<GetUserEvent>(_getUser);
+    on<UpdateUserEvent>(_updateUser);
   }
 
   FutureOr<void> _getUser(GetUserEvent event, Emitter<UserState> emit) async {
@@ -23,6 +24,18 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       final user = await repository.getUser();
 
       emit(state.copyWith(status: BlocStatus.success, userEntity: user));
+    } catch (e) {
+      emit(state.copyWith(status: BlocStatus.error));
+    }
+  }
+
+  FutureOr<void> _updateUser(UpdateUserEvent event, Emitter<UserState> emit) async {
+    try {
+      emit(state.copyWith(status: BlocStatus.loading));
+
+      await repository.updateUser(event.username, event.phoneNumber, event.fullName);
+
+      emit(state.copyWith(status: BlocStatus.success));
     } catch (e) {
       emit(state.copyWith(status: BlocStatus.error));
     }

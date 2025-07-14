@@ -7,6 +7,9 @@ class SubscriptionEntity {
   final LatLng? latLng;
   final String? necessaryTools;
   final double? discount;
+  final List<String> images;
+  final String description;
+  final String? address;
 
   const SubscriptionEntity({
     required this.id,
@@ -15,5 +18,8 @@ class SubscriptionEntity {
     required this.latLng,
     required this.necessaryTools,
     required this.discount,
+    required this.images,
+    required this.description,
+    required this.address,
   });
 }

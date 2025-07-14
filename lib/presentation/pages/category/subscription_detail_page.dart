@@ -6,15 +6,10 @@ import 'package:go_router/go_router.dart';
 import 'package:gym_pro/assets/assets.dart';
 import 'package:gym_pro/components/bottom_button_bar.dart';
 import 'package:gym_pro/components/custom_app_bar.dart';
-import 'package:gym_pro/components/favourited_item_widget.dart';
-import 'package:gym_pro/components/horizontal_list_widget.dart';
 import 'package:gym_pro/config/enums/bloc_status.dart';
-import 'package:gym_pro/config/localisation/app_localisation.dart';
-import 'package:gym_pro/config/localisation/localisation_keys.dart';
 import 'package:gym_pro/config/router/route_name.dart';
 import 'package:gym_pro/config/style/app_colors.dart';
 import 'package:gym_pro/config/utils/frequent_methods.dart';
-import 'package:gym_pro/domain/entity/favourite_entity.dart';
 import 'package:gym_pro/presentation/bloc/abonements/abonement_bloc.dart';
 import 'package:gym_pro/presentation/pages/category/widgets/about_widget.dart';
 import 'package:gym_pro/presentation/pages/category/widgets/carousel_widget.dart';
@@ -24,6 +19,7 @@ import 'package:gym_pro/presentation/pages/category/widgets/location_widget.dart
 
 class SubscriptionDetailPage extends StatefulWidget {
   final int providerId;
+
   const SubscriptionDetailPage({super.key, required this.providerId});
 
   @override
@@ -41,11 +37,12 @@ class _SubscriptionDetailPageState extends State<SubscriptionDetailPage> {
   Widget build(BuildContext context) {
     return BlocListener<AbonementBloc, AbonementState>(
       listener: (context, state) {
-        if (state.status == BlocStatus.failure) {
+        if (state.status == BlocStatus.error) {
           FrequentMethods.showSnackBar(context, state.errorMessage ?? '');
         }
       },
       child: Scaffold(
+        backgroundColor: context.colors.modalDark,
         appBar: CustomAppBar(actions: [SvgPicture.asset(Assets.svgShare), const Gap(16)]),
         bottomNavigationBar: BottomButtonBar(
           buttonText: 'Next',
@@ -56,7 +53,7 @@ class _SubscriptionDetailPageState extends State<SubscriptionDetailPage> {
         body: BlocBuilder<AbonementBloc, AbonementState>(
           builder: (context, state) {
             if (state.status == BlocStatus.loading ||
-                state.status == BlocStatus.failure ||
+                state.status == BlocStatus.error ||
                 state.providerDetailEntity == null) {
               return Center(child: CircularProgressIndicator(color: context.colors.primaryColor));
             }
@@ -71,31 +68,31 @@ class _SubscriptionDetailPageState extends State<SubscriptionDetailPage> {
                 const SliverGap(16),
                 SliverToBoxAdapter(child: AboutWidget()),
 
-                const SliverGap(16),
-                SliverToBoxAdapter(
-                  child: HorizontalListWidget(
-                    title: context.tr(LocalisationKeys.favorited_trainer),
-                    listChild: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      itemCount: 7,
-                      shrinkWrap: true,
-                      physics: const BouncingScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return FavouritedItemWidget(
-                          entity: FavouriteEntity(
-                            imagePath:
-                                'https://landmarksarchitects.com/wp-content/uploads/2024/04/Functionality-and-Space-Planning-03.04.2024.jpg',
-                            title: 'Abdulaziz K.',
-                            subtitle: 'Experienced trainer',
-                          ),
-                          onTap: () {},
-                        );
-                      },
-                      separatorBuilder: (context, index) => const Gap(12),
-                    ),
-                  ),
-                ),
+                // const SliverGap(16),
+                // SliverToBoxAdapter(
+                //   child: HorizontalListWidget(
+                //     title: context.tr(LocalisationKeys.favorited_trainer),
+                //     listChild: ListView.separated(
+                //       scrollDirection: Axis.horizontal,
+                //       padding: const EdgeInsets.symmetric(horizontal: 16),
+                //       itemCount: 7,
+                //       shrinkWrap: true,
+                //       physics: const BouncingScrollPhysics(),
+                //       itemBuilder: (context, index) {
+                //         return FavouritedItemWidget(
+                //           entity: FavouriteEntity(
+                //             imagePath:
+                //                 'https://landmarksarchitects.com/wp-content/uploads/2024/04/Functionality-and-Space-Planning-03.04.2024.jpg',
+                //             title: 'Abdulaziz K.',
+                //             subtitle: 'Experienced trainer',
+                //           ),
+                //           onTap: () {},
+                //         );
+                //       },
+                //       separatorBuilder: (context, index) => const Gap(12),
+                //     ),
+                //   ),
+                // ),
                 if (state.providerDetailEntity!.latLng != null) ...[
                   const SliverGap(24),
                   SliverToBoxAdapter(

@@ -37,13 +37,17 @@ class ApiException extends DioException {
           response == null
               ? null
               : response.containsKey('detail')
-              ? response['detail']
+              ? response['detail'].containsKey('error_message')
+                  ? response['detail']['error_message']
+                  : response['detail']
               : null,
       title:
           response == null
               ? null
-              : response.containsKey('title')
-              ? response['title']
+              : response.containsKey('detail')
+              ? response['detail'].containsKey('title')
+                  ? response['detail']['title']
+                  : response['detail']
               : null,
       statusCode: statusCode,
     );

@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
           child: MaterialApp.router(
             routerConfig: AppRouter.router,
             debugShowCheckedModeBanner: false,
-            title: 'Gym Pro',
+            title: 'SubMe',
             locale: Locale(state.locale),
             localizationsDelegates: [
               GlobalMaterialLocalizations.delegate,

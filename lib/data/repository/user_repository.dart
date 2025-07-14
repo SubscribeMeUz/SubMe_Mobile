@@ -29,8 +29,16 @@ class UserRepositoryImpl extends UserRepository {
   }
 
   @override
-  Future<void> updateUser(UpdateUserModel updateUserModel) async {
-    // TODO: implement updateUser
-    throw UnimplementedError();
+  Future<void> updateUser(String? username, String? phone, String? fullname) async {
+    final updateModel = UpdateUserModel(username: username, phone: phone, fullName: fullname);
+
+    await remoteSource.updateUser(updateModel);
+
+    if (phone != null) {
+      await LocalStorage.putString(CacheKeys.phoneNumber, phone);
+    }
+    if (fullname != null) {
+      await LocalStorage.putString(CacheKeys.fullname, fullname);
+    }
   }
 }

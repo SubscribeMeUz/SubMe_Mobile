@@ -14,6 +14,9 @@ class SubscriptionModel {
   List<int?>? discounts;
   OwnerModel? owner;
   String? registredDate;
+  String? aboutDescription;
+  List<Photos>? photos;
+  String? locationName;
 
   SubscriptionModel({
     this.id,
@@ -25,6 +28,8 @@ class SubscriptionModel {
     this.owner,
     this.registredDate,
     this.discounts,
+    this.aboutDescription,
+    this.locationName,
   });
 
   SubscriptionModel.fromJson(Map<String, dynamic> json) {
@@ -37,6 +42,14 @@ class SubscriptionModel {
     discounts = json['discounts'].cast<int?>();
     owner = json['owner'] != null ? OwnerModel.fromJson(json['owner']) : null;
     registredDate = json['registred_date'];
+    aboutDescription = json['about_description'];
+    locationName = json['location_name'];
+    if (json['photos'] != null) {
+      photos = <Photos>[];
+      json['photos'].forEach((v) {
+        photos!.add(Photos.fromJson(v));
+      });
+    }
   }
 
   SubscriptionEntity get toEntity {
@@ -56,6 +69,19 @@ class SubscriptionModel {
           (discounts != null && discounts?.isNotEmpty == true)
               ? (discounts!.map((e) => e!.toInt()).toList()).reduce(max).toDouble()
               : null,
+      description: aboutDescription ?? '',
+      images: photos?.map((e) => e.photoUrl ?? '').toList() ?? [],
+      address: locationName,
     );
+  }
+}
+
+class Photos {
+  String? photoUrl;
+
+  Photos({this.photoUrl});
+
+  Photos.fromJson(Map<String, dynamic> json) {
+    photoUrl = json['photo_url'];
   }
 }

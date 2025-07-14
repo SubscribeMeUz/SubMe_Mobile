@@ -1,16 +1,19 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gym_pro/assets/assets.dart';
 import 'package:gym_pro/components/custom_app_bar.dart';
 import 'package:gym_pro/config/localisation/app_localisation.dart';
 import 'package:gym_pro/config/localisation/localisation_keys.dart';
+import 'package:gym_pro/config/router/route_name.dart';
 import 'package:gym_pro/config/style/app_colors.dart';
 import 'package:gym_pro/config/style/app_text_style.dart';
 import 'package:gym_pro/presentation/bloc/user/user_bloc.dart';
 import 'package:gym_pro/presentation/pages/home/widgets/ad_widget.dart';
+import 'package:gym_pro/presentation/pages/profile/widgets/avatar_widget.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -31,13 +34,31 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: CustomAppBar(
         actions: [
-          // Text(
-          //   context.tr(LocalisationKeys.edit),
-          //   style: context.textStyle.sfProRegular.copyWith(
-          //     color: context.colors.primaryColor,
-          //     fontSize: 17,
-          //   ),
-          // ),
+          BlocBuilder<UserBloc, UserState>(
+            builder: (context, state) {
+              if (state.userEntity == null) {
+                return const SizedBox.shrink();
+              }
+              return GestureDetector(
+                onTap: () async {
+                  final isUpdated = await context.pushNamed<bool?>(
+                    RouteName.editProfileRoute,
+                    extra: state.userEntity,
+                  );
+                  if (isUpdated == true && context.mounted) {
+                    context.read<UserBloc>().add(GetUserEvent());
+                  }
+                },
+                child: Text(
+                  context.tr(LocalisationKeys.edit),
+                  style: context.textStyle.sfProRegular.copyWith(
+                    color: context.colors.primaryColor,
+                    fontSize: 17,
+                  ),
+                ),
+              );
+            },
+          ),
           const Gap(16),
         ],
       ),
@@ -48,24 +69,7 @@ class _ProfilePageState extends State<ProfilePage> {
             builder: (context, state) {
               return Column(
                 children: [
-                  Container(
-                    width: 80,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color(0xff242629),
-                      // image: DecorationImage(image: CachedNetworkImageProvider('url')),
-                    ),
-                    child: Center(
-                      child: Text(
-                        state.userEntity?.fullName?.substring(0, 1) ?? '',
-                        style: context.textStyle.sfProBold.copyWith(
-                          fontSize: 20,
-                          color: context.colors.whiteColor,
-                        ),
-                      ),
-                    ),
-                  ),
+                  AvatarWidget(letter: state.userEntity?.fullName?.substring(0, 1) ?? ''),
                   const Gap(16),
                   Center(
                     child: Text(
@@ -99,7 +103,7 @@ class _ProfilePageState extends State<ProfilePage> {
             child: AdWidget(
               title: 'First Month — Free! 🎉',
               subtitle:
-                  'Start your fitness journey today! Enjoy your first month as a gift with GymPro.',
+                  'Start your fitness journey today! Enjoy your first month as a gift with SubMe.',
               imagePath: Assets.pngLogo,
               onTap: () {},
             ),
@@ -115,10 +119,16 @@ class _ProfilePageState extends State<ProfilePage> {
 
             child: Column(
               children: [
-                item(Assets.svgAboutApp, context.tr(LocalisationKeys.about_app)),
-                item(Assets.svgQuestion, context.tr(LocalisationKeys.frequent_questions)),
-                item(Assets.svgAgreement, context.tr(LocalisationKeys.terms_agreement)),
-                item(Assets.svgPrivacy, context.tr(LocalisationKeys.privacy_policy)),
+                item(Assets.svgAboutApp, context.tr(LocalisationKeys.about_app), () {
+                  context.goNamed(RouteName.aboutApp);
+                }),
+                item(Assets.svgQuestion, context.tr(LocalisationKeys.frequent_questions), () {}),
+                item(Assets.svgAgreement, context.tr(LocalisationKeys.terms_agreement), () {
+                  launchUrlString('https://subme.uz');
+                }),
+                item(Assets.svgPrivacy, context.tr(LocalisationKeys.privacy_policy), () {
+                  launchUrlString('https://subme.uz/privacy-policy');
+                }),
               ],
             ),
           ),
@@ -127,29 +137,33 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  item(String svgIcon, String title) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 8),
-      child: Row(
-        children: [
-          SvgPicture.asset(
-            svgIcon,
-            height: 24,
-            width: 24,
-            colorFilter: ColorFilter.mode(context.colors.whiteColor, BlendMode.srcIn),
-          ),
-          const Gap(18),
-          Flexible(
-            child: Text(
-              title,
-              style: context.textStyle.sfProMedium.copyWith(
-                fontSize: 17,
-                color: context.colors.whiteColor,
-                height: 22 / 17,
+  item(String svgIcon, String title, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 8),
+        child: Row(
+          children: [
+            SvgPicture.asset(
+              svgIcon,
+              height: 24,
+              width: 24,
+              colorFilter: ColorFilter.mode(context.colors.whiteColor, BlendMode.srcIn),
+            ),
+            const Gap(18),
+            Flexible(
+              child: Text(
+                title,
+                style: context.textStyle.sfProMedium.copyWith(
+                  fontSize: 17,
+                  color: context.colors.whiteColor,
+                  height: 22 / 17,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

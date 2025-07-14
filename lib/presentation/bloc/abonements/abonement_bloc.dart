@@ -32,9 +32,9 @@ class AbonementBloc extends Bloc<AbonementEvent, AbonementState> {
 
       emit(state.copyWith(status: BlocStatus.success, providerDetailEntity: data));
     } on ApiException catch (e) {
-      emit(state.copyWith(status: BlocStatus.failure, errorMessage: e.errMessage));
+      emit(state.copyWith(status: BlocStatus.error, errorMessage: e.errMessage));
     } catch (e) {
-      emit(state.copyWith(status: BlocStatus.failure, errorMessage: '$e'));
+      emit(state.copyWith(status: BlocStatus.error, errorMessage: '$e'));
     }
   }
 
@@ -49,9 +49,9 @@ class AbonementBloc extends Bloc<AbonementEvent, AbonementState> {
 
       emit(state.copyWith(status: BlocStatus.success, providerTariffList: data));
     } on ApiException catch (e) {
-      emit(state.copyWith(status: BlocStatus.failure, errorMessage: e.errMessage));
+      emit(state.copyWith(status: BlocStatus.error, errorMessage: e.errMessage));
     } catch (e) {
-      emit(state.copyWith(status: BlocStatus.failure, errorMessage: '$e'));
+      emit(state.copyWith(status: BlocStatus.error, errorMessage: '$e'));
     }
   }
 

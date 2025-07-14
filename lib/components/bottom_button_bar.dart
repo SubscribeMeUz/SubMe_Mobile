@@ -10,6 +10,7 @@ class BottomButtonBar extends StatelessWidget {
   final EdgeInsets? padding;
   final VoidCallback? onTap;
   final Color? backgroundColor;
+  final bool isLoading;
 
   const BottomButtonBar({
     super.key,
@@ -19,6 +20,7 @@ class BottomButtonBar extends StatelessWidget {
     this.padding,
     this.onTap,
     this.backgroundColor,
+    this.isLoading = false,
   });
 
   @override
@@ -37,7 +39,7 @@ class BottomButtonBar extends StatelessWidget {
           if (button != null)
             button!
           else if (buttonText != null)
-            CustomButton(buttonText: buttonText ?? '', onTap: onTap),
+            CustomButton(buttonText: buttonText ?? '', onTap: onTap, isLoading: isLoading),
           if (widgetBelowButton != null) ...[const Gap(12), widgetBelowButton!],
         ],
       ),
