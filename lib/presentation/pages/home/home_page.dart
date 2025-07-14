@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> {
                 title: 'First Month — Free! 🎉',
                 subtitle:
                     'Start your fitness journey today! Enjoy your first month as a gift with SubMe.',
-                imagePath: Assets.pngLogo,
+                imagePath: Assets.coverLogo,
                 onTap: () {},
               ),
             ),

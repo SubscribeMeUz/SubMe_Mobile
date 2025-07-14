@@ -3,13 +3,19 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:gym_pro/assets/assets.dart';
 import 'package:gym_pro/components/custom_app_bar.dart';
+import 'package:gym_pro/config/mixin/get_version_mixin.dart';
 import 'package:gym_pro/config/style/app_colors.dart';
 import 'package:gym_pro/config/style/app_text_style.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-class AboutAppPage extends StatelessWidget {
+class AboutAppPage extends StatefulWidget {
   const AboutAppPage({super.key});
 
+  @override
+  State<AboutAppPage> createState() => _AboutAppPageState();
+}
+
+class _AboutAppPageState extends State<AboutAppPage> with VersionMixin {
   _socialItem(BuildContext context, String assetName, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
@@ -23,6 +29,19 @@ class AboutAppPage extends StatelessWidget {
         child: SvgPicture.asset(assetName),
       ),
     );
+  }
+
+  String? version = '';
+
+  @override
+  void initState() {
+    super.initState();
+    getVersion();
+  }
+
+  void getVersion() async {
+    version = await getAppVersion();
+    setState(() {});
   }
 
   @override
@@ -55,7 +74,7 @@ class AboutAppPage extends StatelessWidget {
             ),
             const Gap(10),
             Text(
-              'version: 1.0.3',
+              'version: $version',
               style: context.textStyle.sfProRegular.copyWith(
                 color: context.colors.whiteColor,
                 fontSize: 16,
@@ -69,7 +88,7 @@ class AboutAppPage extends StatelessWidget {
                 '''
             SubMe is your personal subscription manager. The app helps you keep all your subscriptions — such as learning centers, coffee shops, fitness clubs, services, and more — in one place.
             
-            Track your subscriptions, get reminders for upcoming payments, and cancel the ones you no longer need. With SubMe, you stay organized and in control of your spending.''',
+            Track your subscriptions, get reminders for upcoming payments. With SubMe, you stay organized and in control of your spending.''',
                 style: context.textStyle.sfProRegular.copyWith(
                   color: context.colors.whiteColor,
                   fontSize: 16,

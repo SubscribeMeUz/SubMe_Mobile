@@ -66,39 +66,41 @@ class WelcomePage extends StatelessWidget {
           },
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          children: [
-            const Gap(32),
-            Image.asset(Assets.welcomePng),
-            const Gap(24),
-            Text(
-              'SubscribeMe',
-              style: context.textStyle.sfProBold.copyWith(
-                color: context.colors.whiteColor,
-                fontSize: 34,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            children: [
+              const Gap(32),
+              Image.asset(Assets.welcomePng),
+              const Gap(24),
+              Text(
+                'SubscribeMe',
+                style: context.textStyle.sfProBold.copyWith(
+                  color: context.colors.whiteColor,
+                  fontSize: 34,
+                ),
               ),
-            ),
-            Text(
-              'all your subscriptions in one app',
-              style: context.textStyle.sfProMedium.copyWith(
-                color: context.colors.ebebf5Color.withAlpha(92),
-                fontSize: 17,
+              Text(
+                'all your subscriptions in one app',
+                style: context.textStyle.sfProMedium.copyWith(
+                  color: context.colors.ebebf5Color.withAlpha(92),
+                  fontSize: 17,
+                ),
               ),
-            ),
-            const Gap(32),
-            CustomButton(
-              onTap: () {
-                context.goNamed(RouteName.enterPhoneRoute);
-              },
-              buttonText: context.tr(LocalisationKeys.start),
-            ),
-            const Gap(12),
-            EmailWidget(iconPath: Assets.appleLogo, text: 'Continue with Apple', onTap: () {}),
-            const Gap(12),
-            EmailWidget(iconPath: Assets.gmailLogo, text: 'Continue with Google', onTap: () {}),
-          ],
+              const Gap(32),
+              CustomButton(
+                onTap: () {
+                  context.goNamed(RouteName.enterPhoneRoute);
+                },
+                buttonText: context.tr(LocalisationKeys.start),
+              ),
+              const Gap(12),
+              EmailWidget(iconPath: Assets.appleLogo, text: 'Continue with Apple', onTap: () {}),
+              const Gap(12),
+              EmailWidget(iconPath: Assets.gmailLogo, text: 'Continue with Google', onTap: () {}),
+            ],
+          ),
         ),
       ),
     );
