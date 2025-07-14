@@ -8,6 +8,7 @@ import 'package:gym_pro/config/localisation/localisation_keys.dart';
 import 'package:gym_pro/config/router/route_name.dart';
 import 'package:gym_pro/config/style/app_colors.dart';
 import 'package:gym_pro/presentation/bloc/subscriptions/subscription_bloc.dart';
+import 'package:gym_pro/presentation/pages/category/subscribed_provider_detail_page.dart';
 import 'package:gym_pro/presentation/pages/home/widgets/my_subscription_widget.dart';
 
 class MySubscriptionsPage extends StatefulWidget {
@@ -45,8 +46,11 @@ class _ProviderListPageState extends State<MySubscriptionsPage> {
                   mySubscriptions: state.myAbonements,
                   onTapIndex: (index) {
                     context.pushNamed(
-                      RouteName.subscriptionDetailPage,
-                      extra: state.myAbonements[index].providerId,
+                      RouteName.subscribedDetailRoute,
+                      extra: SubscribedProviderDetailPageArgs(
+                        providerId: state.myAbonements[index].providerId,
+                        mySubscriptionEntity: state.myAbonements[index],
+                      ),
                     );
                   },
                 ),

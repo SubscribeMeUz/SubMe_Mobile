@@ -43,7 +43,7 @@ class _EnterPhonePageState extends State<EnterPhonePage> {
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
-        if (state.status == BlocStatus.failure) {
+        if (state.status == BlocStatus.error) {
           FrequentMethods.showSnackBar(context, state.errorMessage ?? '');
         } else if (state.status == BlocStatus.success) {
           context.goNamed(
@@ -87,7 +87,7 @@ class _EnterPhonePageState extends State<EnterPhonePage> {
                 controller: _phoneController,
                 isFocused: true,
                 prefixText: '+998 ',
-                labelText: context.tr(LocalisationKeys.phone_number),
+                hintText: context.tr(LocalisationKeys.phone_number),
                 inputType: TextInputType.phone,
                 inputFormatters: [phoneFormatter],
               ),

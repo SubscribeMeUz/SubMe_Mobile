@@ -8,6 +8,7 @@ import 'package:gym_pro/assets/assets.dart';
 import 'package:gym_pro/components/custom_button.dart';
 import 'package:gym_pro/components/favourited_item_widget.dart';
 import 'package:gym_pro/components/horizontal_list_widget.dart';
+import 'package:gym_pro/components/sliver_refresh.dart';
 import 'package:gym_pro/config/enums/bloc_status.dart';
 import 'package:gym_pro/config/localisation/app_localisation.dart';
 import 'package:gym_pro/config/localisation/localisation_keys.dart';
@@ -16,6 +17,7 @@ import 'package:gym_pro/config/style/app_colors.dart';
 import 'package:gym_pro/config/style/app_text_style.dart';
 import 'package:gym_pro/domain/entity/favourite_entity.dart';
 import 'package:gym_pro/presentation/bloc/subscriptions/subscription_bloc.dart';
+import 'package:gym_pro/presentation/pages/category/subscribed_provider_detail_page.dart';
 import 'package:gym_pro/presentation/pages/home/widgets/ad_widget.dart';
 import 'package:gym_pro/presentation/pages/home/widgets/my_subscription_widget.dart';
 
@@ -39,6 +41,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
         slivers: [
           SliverAppBar(
             expandedHeight: 120,
@@ -70,6 +73,11 @@ class _HomePageState extends State<HomePage> {
               const Gap(12),
             ],
           ),
+          CustomSliverPullRefresh(
+            onRefresh: () async {
+              context.read<SubscriptionBloc>().add(GetMySubscriptionsEvent());
+            },
+          ),
           SliverPadding(
             padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
             sliver: SliverToBoxAdapter(
@@ -87,13 +95,14 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           const SliverGap(15),
+
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: AdWidget(
                 title: 'First Month — Free! 🎉',
                 subtitle:
-                    'Start your fitness journey today! Enjoy your first month as a gift with GymPro.',
+                    'Start your fitness journey today! Enjoy your first month as a gift with SubMe.',
                 imagePath: Assets.pngLogo,
                 onTap: () {},
               ),
@@ -114,8 +123,11 @@ class _HomePageState extends State<HomePage> {
                     mySubscriptions: state.myAbonements,
                     onTapIndex: (index) {
                       context.goNamed(
-                        RouteName.subscriptionDetailPage,
-                        extra: state.myAbonements[index].providerId,
+                        RouteName.subscribedDetailRoute,
+                        extra: SubscribedProviderDetailPageArgs(
+                          providerId: state.myAbonements[index].providerId,
+                          mySubscriptionEntity: state.myAbonements[index],
+                        ),
                       );
                     },
                   );

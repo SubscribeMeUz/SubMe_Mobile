@@ -1,9 +1,9 @@
 class UpdateUserModel {
-  final String username;
+  final String? username;
   final String? password;
   final String? newPassword;
-  final String phone;
-  final String fullName;
+  final String? phone;
+  final String? fullName;
 
   UpdateUserModel({
     required this.username,

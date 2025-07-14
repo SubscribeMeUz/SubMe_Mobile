@@ -6,3 +6,11 @@ sealed class UserEvent extends Equatable {
 }
 
 class GetUserEvent extends UserEvent {}
+
+class UpdateUserEvent extends UserEvent {
+  final String? phoneNumber;
+  final String? fullName;
+  final String? username;
+
+  UpdateUserEvent({this.phoneNumber, this.fullName, this.username});
+}

@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:gym_pro/config/cache/cache_keys.dart';
 import 'package:gym_pro/config/cache/local_storage.dart';
 import 'package:gym_pro/config/constants/constants.dart';
+import 'package:gym_pro/config/mixin/logout_mixin.dart';
 import 'package:gym_pro/config/network/api_exception.dart';
 import 'package:gym_pro/config/network/dio_connectivity_request_retrier.dart';
 
@@ -12,7 +13,7 @@ bool isRefreshingToken = false;
 
 List<Map<dynamic, dynamic>> failedRequests = [];
 
-class CustomDioInterceptor extends Interceptor {
+class CustomDioInterceptor extends Interceptor with LogoutMixin {
   final DioConnectivityRequestRetrier dioConnectivityRequestRetrier;
 
   CustomDioInterceptor({required this.dio, required this.dioConnectivityRequestRetrier});
@@ -127,9 +128,7 @@ class CustomDioInterceptor extends Interceptor {
       await LocalStorage.putString(CacheKeys.refreshToken, data['refresh_token']);
       return true;
     } catch (e) {
-      //logout
-
-      //TODO go to auth page
+      await logout();
 
       return false;
     }

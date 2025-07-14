@@ -25,7 +25,7 @@ class _ConfirmNumberPageState extends State<ConfirmNumberPage> {
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
-        if (state.status == BlocStatus.failure) {
+        if (state.status == BlocStatus.error) {
           FrequentMethods.showSnackBar(context, state.errorMessage ?? '');
         } else if (state.status == BlocStatus.success) {
           context.goNamed(

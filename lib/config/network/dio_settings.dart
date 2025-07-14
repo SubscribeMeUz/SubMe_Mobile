@@ -15,6 +15,7 @@ Chuck chuck = Chuck(
   showNotification: true,
   showInspectorOnShake: false,
   navigatorKey: rootNavigatorKey,
+  notificationIcon: '@mipmap/app_logo',
 );
 
 class DioSettings {
@@ -53,7 +54,8 @@ class DioSettings {
 
     _dio!.interceptors.addAll([
       customInterceptor,
-      if (kDebugMode) chuck.dioInterceptor,
+      // if (kDebugMode)
+      chuck.dioInterceptor,
       if (kDebugMode) ...[
         LogInterceptor(request: true, responseBody: true, error: true, requestBody: true),
       ],

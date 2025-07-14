@@ -48,4 +48,14 @@ class SubscriptionRemoteSource {
 
     await dio.dioMethod(purchaseApi, RESTMethodTypes.POST, data: {'aboniment_id': abonementId});
   }
+
+  Future<void> visitAbonement(int abonementId, int providerId) async {
+    final visitViaQrApi = Constants.visitViaQrApi;
+
+    await dio.dioMethod(
+      visitViaQrApi,
+      RESTMethodTypes.POST,
+      data: {"provider_id": providerId, "aboniment_id": abonementId},
+    );
+  }
 }

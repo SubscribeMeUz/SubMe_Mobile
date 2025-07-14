@@ -30,9 +30,9 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
 
       emit(state.copyWith(status: BlocStatus.success, myAbonements: data));
     } on ApiException catch (e) {
-      emit(state.copyWith(status: BlocStatus.failure, errorMessage: e.errMessage));
+      emit(state.copyWith(status: BlocStatus.error, errorMessage: e.errMessage));
     } catch (e) {
-      emit(state.copyWith(status: BlocStatus.failure, errorMessage: '$e'));
+      emit(state.copyWith(status: BlocStatus.error, errorMessage: '$e'));
     }
   }
 
@@ -47,9 +47,9 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
 
       emit(state.copyWith(status: BlocStatus.success, subscriptions: data));
     } on ApiException catch (e) {
-      emit(state.copyWith(status: BlocStatus.failure, errorMessage: e.errMessage));
+      emit(state.copyWith(status: BlocStatus.error, errorMessage: e.errMessage));
     } catch (e) {
-      emit(state.copyWith(status: BlocStatus.failure, errorMessage: '$e'));
+      emit(state.copyWith(status: BlocStatus.error, errorMessage: '$e'));
     }
   }
 
@@ -64,7 +64,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
 
       emit(state.copyWith(status: BlocStatus.success));
     } catch (e) {
-      emit(state.copyWith(status: BlocStatus.failure, errorMessage: '$e'));
+      emit(state.copyWith(status: BlocStatus.error, errorMessage: '$e'));
     }
   }
 }

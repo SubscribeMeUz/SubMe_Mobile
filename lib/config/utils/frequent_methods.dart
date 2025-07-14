@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gym_pro/config/style/app_colors.dart';
+import 'package:gym_pro/config/style/app_text_style.dart';
 import 'package:intl/intl.dart';
 
 class FrequentMethods {
@@ -41,5 +44,73 @@ class FrequentMethods {
       backgroundColor: color,
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  static void showAlertDialog(
+    BuildContext context,
+    String title,
+    String subtitle, {
+    VoidCallback? onYesTap,
+    VoidCallback? onNoTap,
+    String? yesButtonText,
+    String? noButtonText,
+  }) {
+    showCupertinoDialog<void>(
+      context: context,
+      builder:
+          (BuildContext context) => CupertinoTheme(
+            data: CupertinoThemeData(brightness: Brightness.dark),
+            child: CupertinoAlertDialog(
+              title: Text(
+                title,
+                style: context.textStyle.sfProSemiBold.copyWith(
+                  fontSize: 18,
+                  color: context.colors.whiteColor,
+                ),
+              ),
+              content: Text(
+                subtitle,
+                style: context.textStyle.sfProRegular.copyWith(
+                  fontSize: 14,
+                  color: context.colors.grayDarkColor,
+                ),
+              ),
+              actions: <CupertinoDialogAction>[
+                if (onNoTap != null || noButtonText != null)
+                  CupertinoDialogAction(
+                    isDestructiveAction: true,
+                    onPressed: () {
+                      Navigator.pop(context);
+                      if (onNoTap != null) {
+                        onNoTap();
+                      }
+                    },
+                    child: Text(
+                      noButtonText ?? 'No',
+                      style: context.textStyle.sfProSemiBold.copyWith(
+                        color: context.colors.whiteColor,
+                      ),
+                    ),
+                  ),
+
+                CupertinoDialogAction(
+                  isDefaultAction: true,
+                  onPressed: () {
+                    Navigator.pop(context);
+                    if (onYesTap != null) {
+                      onYesTap();
+                    }
+                  },
+                  child: Text(
+                    yesButtonText ?? 'OK',
+                    style: context.textStyle.sfProSemiBold.copyWith(
+                      color: context.colors.primaryColor,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+    );
   }
 }

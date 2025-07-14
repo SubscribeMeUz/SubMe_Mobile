@@ -24,9 +24,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       emit(state.copyWith(status: BlocStatus.success));
     } on ApiException catch (e) {
-      emit(state.copyWith(status: BlocStatus.failure, errorMessage: e.errMessage));
+      emit(state.copyWith(status: BlocStatus.error, errorMessage: e.errMessage));
     } catch (e) {
-      emit(state.copyWith(status: BlocStatus.failure, errorMessage: e.toString()));
+      emit(state.copyWith(status: BlocStatus.error, errorMessage: e.toString()));
     }
   }
 
@@ -38,9 +38,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       emit(state.copyWith(status: BlocStatus.success));
     } on ApiException catch (e) {
-      emit(state.copyWith(status: BlocStatus.failure, errorMessage: e.errMessage));
+      emit(state.copyWith(status: BlocStatus.error, errorMessage: e.errMessage));
     } catch (e) {
-      emit(state.copyWith(status: BlocStatus.failure, errorMessage: e.toString()));
+      emit(state.copyWith(status: BlocStatus.error, errorMessage: e.toString()));
     }
   }
 }

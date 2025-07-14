@@ -33,17 +33,19 @@ class MyAbonementModel {
 
   MySubscriptionEntity get toEntity {
     final expireTime = expireDate.toDateTime();
+    final purchaseDate = purchasedDate.toDateTime();
     return MySubscriptionEntity(
       id: id ?? 0,
       providerId: provider?.id ?? 0,
       name: provider?.name ?? '',
-      leftDays: expireTime!.difference(DateTime.now()).inDays,
+      leftDays: expireTime?.difference(DateTime.now()).inDays ?? 0,
       logoUrl: provider?.logoUrl ?? '',
       isPopular: false,
       period: '$expiryDays',
       finishDate: expireTime,
       totalCount: totalCount ?? 0,
       leftCount: aviableCount ?? 0,
+      startDate: purchaseDate,
     );
   }
 }
