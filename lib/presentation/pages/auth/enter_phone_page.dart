@@ -55,11 +55,17 @@ class _EnterPhonePageState extends State<EnterPhonePage> {
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: CustomAppBar(),
-        bottomNavigationBar: BottomButtonBar(
-          buttonText: context.tr(LocalisationKeys.start),
-          onTap: () {
-            final phoneNumber = phoneFormatter.getUnmaskedText();
-            context.read<AuthBloc>().add(SendPhoneNumberEvent(phone: '998$phoneNumber'));
+        bottomNavigationBar: BlocBuilder<AuthBloc, AuthState>(
+          buildWhen: (previous, current) => previous.status != current.status,
+          builder: (context, state) {
+            return BottomButtonBar(
+              isLoading: state.status == BlocStatus.loading,
+              buttonText: context.tr(LocalisationKeys.start),
+              onTap: () {
+                final phoneNumber = phoneFormatter.getUnmaskedText();
+                context.read<AuthBloc>().add(SendPhoneNumberEvent(phone: '998$phoneNumber'));
+              },
+            );
           },
         ),
         body: Column(
