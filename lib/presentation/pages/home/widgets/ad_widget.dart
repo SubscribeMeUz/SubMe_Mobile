@@ -52,7 +52,10 @@ class AdWidget extends StatelessWidget {
             ),
           ),
           const Gap(8),
-          Image.asset(imagePath, width: 64),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: Image.asset(imagePath, width: 66, height: 66, fit: BoxFit.cover),
+          ),
           const Gap(12),
           Container(
             width: 24,
