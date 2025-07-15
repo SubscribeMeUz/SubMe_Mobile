@@ -54,8 +54,7 @@ class DioSettings {
 
     _dio!.interceptors.addAll([
       customInterceptor,
-      // if (kDebugMode)
-      chuck.dioInterceptor,
+      if (kDebugMode) chuck.dioInterceptor,
       if (kDebugMode) ...[
         LogInterceptor(request: true, responseBody: true, error: true, requestBody: true),
       ],
