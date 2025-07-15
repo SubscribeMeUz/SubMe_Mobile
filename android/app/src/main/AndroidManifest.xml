@@ -7,7 +7,7 @@
         android:icon="@mipmap/app_logo">
         
         <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="AIzaSyDUeg__GwoicGwcRfzAABXOw_xU69lRtNA"/>
+               android:value="YOUR_API_KEY"/>
         
         <activity
             android:name=".MainActivity"
